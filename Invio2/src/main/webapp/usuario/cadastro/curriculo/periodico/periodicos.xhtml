@@ -160,21 +160,10 @@
                               min-height: 12px; white-space: pre-line">  
 
                         <p:commandButton 
-                            ajax="false"
-                            title="Enviar Periódico" 
-                            rendered="false"
-                            icon="ui-icon-arrowstop-1-n"
-                            action="#{periodicoBean.upload()}">
-                            <f:setPropertyActionListener
-                                target="#{periodicoBean.periodico}"
-                                value="#{periodico}"/>
-                        </p:commandButton>
-
-                        <p:commandButton 
                             icon="ui-icon-trash"                                    
                             title="Excluir"
+                            process="periodicosTabelaAtuais"
                             update="periodicosTabelaAtuais"
-                            process="@form"
                             action="#{periodicoBean.excluirPeriodico()}">
                             <f:setPropertyActionListener 
                                 value="#{periodico}" 
@@ -184,14 +173,6 @@
                                 message="Voce tem certeza?"
                                 header="Confirmação"/>
                         </p:commandButton> 
-
-                        <p:commandButton 
-                            ajax="false"
-                            rendered="#{avaliacaoBean.possuiArquivo(periodico.arquivo)}"
-                            icon="ui-icon-document"
-                            actionListener="#{avaliacaoBean.visualizarComprovante(periodico.arquivo)}"
-                            onclick="this.form.target = '_blank';"
-                            title="visualizar o comprovante"/>
                     </p:column>
 
                     <f:facet name="footer">

@@ -22,7 +22,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FlowEvent;
-import org.primefaces.model.UploadedFile;
 
 @ManagedBean
 @SessionScoped
@@ -45,7 +44,6 @@ public class CurriculoBean {
     private boolean exibirOutroArea;
     private Integer totalPontos;
     private Orientacao orientacao;
-    private UploadedFile upload;
 
     public CurriculoBean(List<Curriculo> curriculos) {
         this.curriculos = curriculos;
@@ -57,15 +55,6 @@ public class CurriculoBean {
     public List<Curriculo> getCurriculos() {
         curriculos = curriculoRN.obterTodos();
         return curriculos;
-    }
-
-    public UploadedFile getUpload() {
-        return upload;
-    }
-
-    public void setUpload(UploadedFile upload) {
-        System.out.println("Toshiaki");
-        this.upload = upload;
     }
 
     public List<Curriculo> getCurriculosDesc() {
@@ -158,7 +147,7 @@ public class CurriculoBean {
     public String excluirCurriculo() {
         System.out.println("Curriculo " + getCurriculo());
         if (curriculoRN.remover(getCurriculo())) {
-            BeanUtil.criarMensagemDeInformacao("Curriculo excluÃ­do", "Curriculo: " + getCurriculo().getNome());
+            BeanUtil.criarMensagemDeInformacao("Curriculo excluído", "Curriculo: " + getCurriculo().getNome());
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir o curriculo", "Curriculo: " + getCurriculo().getNome());
         }
@@ -174,7 +163,6 @@ public class CurriculoBean {
     }
 
     public String onFlowProcess(FlowEvent event) {
-
         if (event.getOldStep()
                 .equals("areaCurriculo")
                 && curriculo.getArea() != null) {
@@ -211,53 +199,6 @@ public class CurriculoBean {
             curriculo = usuarioLogado.getCurriculo();
         }
         return "/usuario/cadastro/curriculo/wizard.xhtml";
-    }
-
-    public String totalFCO() {
-        Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
-        curriculo = usuarioLogado.getCurriculo();
-
-        if (curriculo != null
-                && curriculo.getId() != null) {
-            totalPontos = 0;
-
-            if ("Doutorado".equals(curriculo.getTitulacao())) {
-                totalPontos += 30;
-            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
-                totalPontos += 15;
-            }
-
-            List<Livro> livros = livroRN.obterLivrosAtuais(curriculo);
-            List<Periodico> periodicos = periodicoRN.obterPeriodicosAtuais(curriculo);
-            List<Orientacao> orientacoes = orientacaoRN.obterOrientacoesAtuais(curriculo);
-
-            if (livros != null) {
-                for (Livro l : livros) {
-                    totalPontos += l.getEstrato();
-                }
-            }
-
-            if (periodicos != null) {
-                for (Periodico p : periodicos) {
-                    totalPontos += p.getEstrato();
-
-                }
-            }
-
-            if (orientacoes != null) {
-                for (Orientacao ori : orientacoes) {
-                    totalPontos += ori.getEstrato();
-                }
-            }
-        }
-        curriculo.setFco(totalPontos);
-
-        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
-        loginLogado.setCurriculo(curriculo);
-
-        loginRN.salvar(loginLogado);
-        curriculoRN.salvar(curriculo);
-        return "/usuario/cadastro/curriculo/fco.xhtml";
     }
 
     public Integer getTotalPontos() {
@@ -304,33 +245,6 @@ public class CurriculoBean {
 
     public void setTotalPontos(Integer totalPontos) {
         this.totalPontos = totalPontos;
-    }
-
-    public String salvarFCO() {
-
-        List<Periodico> periodicos = getCurriculo().getPeriodicoList();
-        List<Livro> livros = getCurriculo().getLivroList();
-        List<Orientacao> orientacoes = getCurriculo().getOrientacaoList();
-
-        for (Periodico periodicoAtual : periodicos) {
-            periodicoRN.salvar(periodicoAtual);
-        }
-
-        for (Livro livroAtual : livros) {
-            livroRN.salvar(livroAtual);
-        }
-
-        for (Orientacao orientacaoAtual : orientacoes) {
-            orientacaoRN.salvar(orientacaoAtual);
-        }
-        curriculo.setFco(totalPontos);
-
-        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
-        loginLogado.setCurriculo(curriculo);
-
-        loginRN.salvar(loginLogado);
-        curriculoRN.salvar(curriculo);
-        return "/administracao/listarCurriculoAv.xhtml";
     }
 
     public Programa getPrograma() {
@@ -391,6 +305,16 @@ public class CurriculoBean {
 
     public List<Area> completeArea(String query) {
         return areaRN.completeArea(query);
+    }
+    
+    public String irParaProducao(String producao) {
+        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
+        if (loginLogado.getCurriculo() == null || loginLogado.getCurriculo().getNome().isEmpty()) {
+            BeanUtil.criarMensagemDeAviso("Aviso", "Você deve registrar seus dados de perfil para poder registrar uma produção, clique na opção do menu 'Meu Perfil' e preencha os dados");
+            return null;
+        } else {
+            return "/usuario/cadastro/curriculo/" + producao;
+        }
     }
 
 }

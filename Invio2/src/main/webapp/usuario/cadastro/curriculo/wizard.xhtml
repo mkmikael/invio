@@ -5,37 +5,23 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
-
     <ui:define name="content">
-        <h:form >
-            <p:panel style="border-color: transparent; color: transparent; background: transparent">
-                <div align="left">
-                    <p:commandButton 
-                        ajax="false" value="Cancelar" action="/publico/indexHome.xhtml"/>
-                </div>
-            </p:panel>
-        </h:form>
-
         <h:form id="formCurriculo" acceptcharset="ISO-8859-1" >
-
             <p:growl id="growl" sticky="true" showDetail="true"/>  
-
             <h:inputHidden id="objCurriculo"
                            value="#{curriculoBean.curriculo.id}"/>
-
 
             <p:wizard widgetVar="wiz" 
                       id="wizardCurriculo"
                       flowListener="#{curriculoBean.onFlowProcess}"
                       nextLabel="Próximo" 
-                      backLabel="Anterior" >
-
+                      backLabel="Anterior">
                 <p:tab id="personal" title="Pessoal">  
-                    <p:panel header="Dados Pessoais" style="height: 500px">  
+                    <p:panel header="Dados Pessoais">  
                         <h:panelGrid columns="3" columnClasses="label, value" styleClass="grid">  
 
                             <h:outputText value="Titulação: *"/>
-                            <p:selectOneMenu style="width: 125px" id="titulacao" 
+                            <p:selectOneMenu id="titulacao" 
                                              required="true" value="#{curriculoBean.curriculo.titulacao}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Doutorado" itemValue="Doutorado" />  
@@ -72,7 +58,7 @@
                             <p:message id="erroNascimento" for="nascimentoCal"/>
 
                             <h:outputText value="Sexo: *"/>
-                            <p:selectOneMenu style="width: 125px" id="genero" required="true" value="#{curriculoBean.curriculo.genero}">  
+                            <p:selectOneMenu id="genero" required="true" value="#{curriculoBean.curriculo.genero}">  
                                 <f:selectItem itemLabel="Selecione" itemValue="" />  
                                 <f:selectItem itemLabel="Masculino" itemValue="Masculino" />  
                                 <f:selectItem itemLabel="Feminino" itemValue="Feminino" />  
@@ -133,7 +119,7 @@
                 </p:tab>  
 
                 <p:tab id="address" title="Endereço">  
-                    <p:panel header="Detalhes do Endereço" style="height: 420px">  
+                    <p:panel header="Detalhes do Endereço">  
                         <h:panelGrid columns="3" columnClasses="label, value">  
 
                             <h:outputText value="Logradouro: " />  
@@ -175,14 +161,13 @@
                     </p:panel>  
                 </p:tab>  
 
-                <p:tab id="areaCurriculo" title="Área">  
-                    <p:panel header="Área do Currículo" style="height: 420px">  
-                        <h:panelGrid columns="1" columnClasses="label, value">  
+                <p:tab id="areaCurriculo" title="Área"> 
+                    <p:panel header="Área do Currículo">
+                        <h:panelGrid columns="1" columnClasses="label, value">
                             <h:outputText value="Selecione a área: " />
                             <p:selectOneListbox  id="scrollAreaCurriculo" 
                                                  value="#{curriculoBean.curriculo.area}"
-                                                 converter="areaConversor" 
-                                                 style="width: 300px;height:200px">
+                                                 converter="areaConversor" style="width: 300px">
                                 <f:selectItems
                                     value="#{areaBean.areas}" 
                                     var="area" 
@@ -195,7 +180,7 @@
                 </p:tab>
 
                 <p:tab id="areaOutroCurriculo" title="Outra Área" >
-                    <p:panel header="Área do Currículo" style="height: 420px">  
+                    <p:panel header="Área do Currículo">
                         <h:panelGrid columns="3" columnClasses="label, value">  
                             <f:view encoding="ISO-8859-1">
                                 <h:outputText value="Digite sua área: *"/>
@@ -215,10 +200,8 @@
                 </p:tab>
 
                 <p:tab id="confirm" title="Confirmação">  
-                    <p:panel  header="Confirmação" style="height: 420px">  
-
+                    <p:panel  header="Confirmação">  
                         <h:panelGrid id="confirmation" columns="6" cellspacing="5" cellpadding="4" >  
-
                             <h:outputText value="Titulação: " />  
                             <h:inputText styleClass="outputLabel"
                                          disabled="true"

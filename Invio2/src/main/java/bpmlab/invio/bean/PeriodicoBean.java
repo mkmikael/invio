@@ -10,6 +10,8 @@ import bpmlab.invio.rn.PeriodicoRN;
 import bpmlab.invio.rn.pdf.QualisRN;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -21,6 +23,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class PeriodicoBean {
 
+    private static final Logger LOG = Logger.getLogger(PeriodicoBean.class.getName());
     private Periodico periodico = new Periodico();
     private final PeriodicoRN periodicoRN = new PeriodicoRN();
 
@@ -80,18 +83,17 @@ public class PeriodicoBean {
         } else {
             periodico.setCurriculo(curriculo);
             periodico.setArquivo("");
-            
+
             if (periodicoRN.salvar(periodico)) {
                 if (curriculo.getPeriodicoList() == null) {
                     curriculo.setPeriodicoList(new ArrayList<Periodico>());
                 }
-                curriculo.getPeriodicoList().add(periodico);
                 if (curriculo.getFco() == null) {
                     curriculo.setFco(0);
                 }
                 curriculo.setFco(curriculo.getFco() + periodico.getEstrato());
                 new CurriculoRN().salvar(curriculo);
-                
+
                 BeanUtil.criarMensagemDeInformacao(
                         "Operação realizada com sucesso",
                         "O periódico " + periodico.getTitulo() + " foi salvo com sucesso.");
@@ -103,34 +105,20 @@ public class PeriodicoBean {
     }
 
     public void excluirPeriodico() {
-        Login login = UsuarioUtil.obterUsuarioLogado();
-        Curriculo curriculo = login.getCurriculo();
+        periodico = new PeriodicoRN().obter(periodico.getId());
+        LOG.log(Level.INFO, "AKI");
+        LOG.log(Level.INFO, periodico.toString());
         if (periodicoRN.remover(periodico)) {
-            curriculo.setFco(curriculo.getFco() - periodico.getEstrato());
-            curriculo.getPeriodicoList().remove(periodico);
-            new CurriculoRN().salvar(curriculo);
+            LOG.log(Level.INFO, "AKI");
             BeanUtil.criarMensagemDeInformacao(
                     "Sucesso",
-                    "Login excluído");
+                    "Periódico excluído");
         } else {
             BeanUtil.criarMensagemDeErro(
                     "Erro",
                     "Não foi possível excluir o login");
         }
-    }
-
-    public String salvarEditarPeriodico(Periodico periodicoTemp) {
-        if (periodicoRN.salvar(periodicoTemp)) {
-            BeanUtil.criarMensagemDeInformacao(
-                    "Operação realizada com sucesso",
-                    "A orientação do bolsista " + periodicoTemp.getTitulo()
-                    + " foi salva com sucesso.");
-        } else {
-            BeanUtil.criarMensagemDeErro("Erro ao salvar a orientaÃ§Ã£o",
-                    "OrientaÃ§Ã£o: " + periodicoTemp.getTitulo());
-        }
         periodico = new Periodico();
-        return null;
     }
 
     public List<String> complete(String query) {

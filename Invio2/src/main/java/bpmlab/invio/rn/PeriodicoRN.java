@@ -7,9 +7,11 @@ import bpmlab.invio.entidade.Periodico;
 import bpmlab.invio.rn.pdf.QualisRN;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PeriodicoRN {
-
+    private static final Logger LOG = Logger.getLogger(PeriodicoRN.class.getName());
     private QualisRN qualisRN = new QualisRN();
     private PeriodicoDAO periodicoDAO = new PeriodicoDAO();
     private Calendar c = Calendar.getInstance();
@@ -18,23 +20,15 @@ public class PeriodicoRN {
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
-        atribuirPontuacaoAutomaticamente(periodico);
+        int estrato = qualisRN.obterEstrato(periodico.getRevista(), periodico.getCurriculo().getArea().getNome());
+        LOG.log(Level.INFO, "Estrato: {0}", estrato);
+        periodico.setEstrato(estrato);
         if (periodico.getId() == null) {
             salvou = periodicoDAO.criar(periodico);
         } else {
             salvou = periodicoDAO.alterar(periodico);
         }
         return salvou;
-    }
-
-    public void atribuirPontuacaoAutomaticamente(Periodico periodico) {
-        int pt = 0;
-        if (periodico.getCurriculo() != null) {
-            Area area = periodico.getCurriculo().getArea();
-            pt = qualisRN.obterEstrato(periodico.getRevista(), area.getNome());
-            System.out.println(pt);
-        }
-        periodico.setEstrato(pt);
     }
 
     public boolean remover(Periodico periodico) {

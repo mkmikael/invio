@@ -100,19 +100,22 @@
                     value="Periódicos" 
                     title="Lista de publicações em periódicos"
                     icon="ui-icon-document"
-                    outcome="/usuario/cadastro/curriculo/periodico/periodicos.xhtml"/>  
+                    ajax="false"
+                    action="#{curriculoBean.irParaProducao('periodico/periodicos.xhtml')}"/>
 
                 <p:menuitem 
                     value="Livros" 
                     title="Publicações de livros como autor ou editor e capítulos"
                     icon="ui-icon-note"
-                    outcome="/usuario/cadastro/curriculo/livro/livros.xhtml"/>  
+                    ajax="false"
+                    action="#{curriculoBean.irParaProducao('livro/livros.xhtml')}"/>
 
                 <p:menuitem 
                     value="Orientações " 
                     title="Indicação dos alunos orientados"
                     icon="ui-icon-person"
-                    outcome="/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml"/>  
+                    ajax="false"
+                    action="#{curriculoBean.irParaProducao('orientacao/orientacoes.xhtml')}"/>  
                 
                 <p:menuitem 
                     value="Imprimir Currículo"  
@@ -140,7 +143,7 @@
                         icon="ui-icon-power"
                         value="Sair" 
                         url="#{request.contextPath}/j_spring_security_logout"/>
-        </p:menu>  
+        </p:menu> 
     </h:form> 
 </html>
 

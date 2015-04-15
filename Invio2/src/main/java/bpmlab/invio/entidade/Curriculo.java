@@ -165,9 +165,9 @@ public class Curriculo implements Serializable {
         @JoinColumn(name = "plano_id", referencedColumnName = "id")})
     @ManyToMany
     private List<Plano> planoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Periodico> periodicoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Orientacao> orientacaoList;
     @JoinColumn(name = "instituicao", referencedColumnName = "id")
     @ManyToOne
@@ -179,7 +179,7 @@ public class Curriculo implements Serializable {
     private List<Relatorio> relatorioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Frequencia> frequenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "curriculo")
     private List<Livro> livroList;
     @OneToMany(mappedBy = "curriculo")
     private List<Login> loginList;
