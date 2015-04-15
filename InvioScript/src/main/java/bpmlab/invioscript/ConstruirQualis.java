@@ -21,9 +21,9 @@ import java.util.Set;
  */
 public class ConstruirQualis {
 
-    private static List<String> primeiraValidacao() {
+    private static List<String> corrigirLinhas() {
         try {
-            PdfReader pdfReader = new PdfReader("C:\\Users\\Dedo\\Documents\\NetBeansProjects\\InvioScript\\src\\main\\java\\bpmlab\\invioscript\\Consulta_Webqualis.pdf");
+            PdfReader pdfReader = new PdfReader("/home/bpmlab/Copy/invio/InvioScript/src/main/java/bpmlab/invioscript/Consulta_Webqualis.pdf");
             String[] linha;
             String novaLinha = null;
             List<String> qualis = new ArrayList<>();
@@ -151,18 +151,19 @@ public class ConstruirQualis {
     }
 
     /**
-      *
-      * Este metodo retorna uma mapa com os seguintes elementos:
-      * <ul>
-      *     <li>qualis : List Qualis</li>
-      *     <li>areas : Set String</li>
-      * </ul>
-      * 
-      * @return Map<String, Object>
-      *
-      **/
+     *
+     * Este metodo retorna uma mapa com os seguintes elementos:
+     * <ul>
+     * <li>qualis : List Qualis</li>
+     * <li>areas : Set String</li>
+     * </ul>
+     *
+     * @return Map<String, Object>
+     *
+     *
+     */
     public static Map<String, Object> construir() {
-        List<String> linhas = primeiraValidacao();
+        List<String> linhas = corrigirLinhas();
         List<Qualis> qualis = new ArrayList<>();
         Set<String> areas = new HashSet<>();
         for (String linha : linhas) {
@@ -218,9 +219,11 @@ public class ConstruirQualis {
                     if (titulo.contains("'")) {
                         titulo = titulo.replace("'", "''");
                     }
-                    Qualis q = new Qualis(issn.trim(), titulo.trim(), estrato, area.trim(), "Atualizado");
-                    qualis.add(q);
-                    areas.add(area.trim());
+                    if (!area.trim().isEmpty()) {
+                        Qualis q = new Qualis(issn.trim(), titulo.trim(), estrato, area.trim(), "Atualizado");
+                        qualis.add(q);
+                        areas.add(area.trim());
+                    }
                 }
             } catch (Exception e) {
             }
