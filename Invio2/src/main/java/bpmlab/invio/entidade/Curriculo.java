@@ -183,6 +183,15 @@ public class Curriculo implements Serializable {
     private List<Livro> livroList;
     @OneToMany(mappedBy = "curriculo")
     private List<Login> loginList;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Curriculo() {
     }

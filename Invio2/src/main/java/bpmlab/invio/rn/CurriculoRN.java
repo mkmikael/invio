@@ -4,12 +4,14 @@
  */
 package bpmlab.invio.rn;
 
+import bpmlab.invio.bean.util.UsuarioUtil;
 import bpmlab.invio.dao.CurriculoDAO;
 import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Login;
+import bpmlab.invio.entidade.Orientacao;
 import bpmlab.invio.entidade.Periodico;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +31,15 @@ public class CurriculoRN implements Serializable {
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;
+        if ("Doutorado".equals(c.getTitulacao())) {
+            c.setExtrato(30);
+        } else if ("Mestrado".equals(c.getTitulacao())) {
+            c.setExtrato(15);
+        } else {
+            c.setExtrato(0);
+        }
         if (c.getId() == null || c.getId().equals(0)) {
+            c.setStatus("Não Avaliado");
             c.setId(null);
             c.setFco(0);
             salvou = dao.criar(c);
@@ -58,105 +68,87 @@ public class CurriculoRN implements Serializable {
         return curriculoDAO.findCurriculoByUsuario(login);
     }
 
-    public List<Curriculo> obterTodosDesc() {
-        List<Curriculo> obterTodosDesc = new ArrayList<Curriculo>();
-
-        List<CurriculoPts> mapa = new ArrayList<CurriculoPts>();
-
-        for (Curriculo curriculo : dao.obterTodos(Curriculo.class)) {
-
-            int totalP = 0;
-            int totalL = 0;
-
-            for (Periodico periodico : curriculo.getPeriodicoList()) {
-                totalP += periodico.getEstrato();
-            }
-
-            for (Livro livro : curriculo.getLivroList()) {
-                totalL += livro.getEstrato();
-            }
-            CurriculoPts cpts = new CurriculoPts(curriculo, totalP + totalL);
-            mapa.add(cpts);
-
-        }
-
-        Collections.sort(mapa);
-
-        for (CurriculoPts curriculoPts : mapa) {
-            obterTodosDesc.add(curriculoPts.getC());
-        }
-
-        return obterTodosDesc;
-    }
-
     public List<Curriculo> obterTodosOrdenado() {
-        return curriculoDAO.obterTodosOrdenado();
-    }
-    
-}
-
-class CurriculoPts implements Comparable<CurriculoPts> {
-
-    private Curriculo c;
-    private Integer pts;
-
-    public CurriculoPts(Curriculo c, Integer pts) {
-        this.c = c;
-        this.pts = pts;
-    }
-
-    public Curriculo getC() {
-        return c;
-    }
-
-    public void setC(Curriculo c) {
-        this.c = c;
-    }
-
-    public Integer getPts() {
-        return pts;
-    }
-
-    public void setPts(Integer pts) {
-        this.pts = pts;
-    }
-
-    @Override
-    public int compareTo(CurriculoPts o) {
-        if (this.pts < o.getPts()) {
-            return -1;
+        List<Curriculo> lista = new ArrayList<Curriculo>();
+        for (Curriculo curriculo : curriculoDAO.obterTodosOrdenado()) {
+            verificarStatus(curriculo);
+            lista.add(curriculo);
         }
-        if (this.pts > o.getPts()) {
-            return 1;
-        }
-        return 0;
+        return lista;
     }
 
-    public int calcularPontosProducao(Curriculo curriculo) {
+    public Integer totalPontos(Curriculo curriculo) {
+        int totalPontos = 0;
+        if (curriculo != null
+                && curriculo.getId() != null) {
+            totalPontos += (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
+
+            List<Livro> livros = new LivroRN().obterLivrosAtuais(curriculo);
+            List<Periodico> periodicos = new PeriodicoRN().obterPeriodicosAtuais(curriculo);
+            List<Orientacao> orientacoes = new OrientacaoRN().obterOrientacoesAtuais(curriculo);
+
+            if (livros != null) {
+                for (Livro l : livros) {
+                    totalPontos += l.getEstrato();
+                }
+            }
+
+            if (periodicos != null) {
+                for (Periodico p : periodicos) {
+                    totalPontos += p.getEstrato();
+
+                }
+            }
+
+            if (orientacoes != null) {
+                for (Orientacao orientacaoTemp : orientacoes) {
+                    totalPontos += orientacaoTemp.getEstrato();
+                }
+            }
+        }
+        return totalPontos;
+    }
+
+    public void verificarStatus(Curriculo c) {
+        List<Livro> livros = new LivroRN().obterLivrosAtuais(c);
+        List<Periodico> periodicos = new PeriodicoRN().obterPeriodicosAtuais(c);
+        List<Orientacao> orientacoes = new OrientacaoRN().obterOrientacoesAtuais(c);
+        int contador = 0;
         int total = 0;
 
-        List<Livro> livros = curriculo.getLivroList();
-        List<Periodico> periodicos = curriculo.getPeriodicoList();
-
-        for (Periodico periodico : periodicos) {
-            if (!periodico.getAvaliacao().trim().equals("")
-                    && !periodico.getAvaliacao().trim().equals("Nao")
-                    && periodico.getAvaliacao() != null) {
-
-                total = total + periodico.getEstrato();
+        if (livros != null) {
+            for (Livro l : livros) {
+                if (l.getAvaliacao() != null) {
+                    contador++;
+                }
             }
+            total += livros.size();
         }
-
-        for (Livro livro : livros) {
-            if (!livro.getAvaliacao().trim().equals("")
-                    && !livro.getAvaliacao().trim().equals("Nao")
-                    && livro.getAvaliacao() != null) {
-
-                total = total + livro.getEstrato();
+        
+        if (periodicos != null) {
+            for (Periodico periodico : periodicos) {
+                if (periodico.getAvaliacao() != null) {
+                    contador++;
+                }
             }
+            total += periodicos.size();
         }
-
-        return total;
+        
+        if (orientacoes != null) {
+            for (Orientacao orientacao : orientacoes) {
+                if (orientacao.getAvaliacao() != null) {
+                    contador++;
+                }
+            }
+            total += orientacoes.size();
+        }
+        
+        if (total == contador) {
+            c.setStatus("Avaliado");
+        } else {
+            c.setStatus("Em Avaliação");
+        }
+        salvar(c);
     }
-    
+
 }

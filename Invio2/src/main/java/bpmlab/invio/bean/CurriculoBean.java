@@ -57,11 +57,6 @@ public class CurriculoBean {
         return curriculos;
     }
 
-    public List<Curriculo> getCurriculosDesc() {
-        curriculos = curriculoRN.obterTodosDesc();
-        return curriculosDesc;
-    }
-
     public void setCurriculosDesc(List<Curriculo> curriculosDesc) {
         this.curriculosDesc = curriculosDesc;
     }
@@ -118,13 +113,6 @@ public class CurriculoBean {
                     "Por favor preencher uma Área.");
             return null;
         } else {
-            if ("Doutorado".equals(curriculo.getTitulacao())) {
-                curriculo.setExtrato(30);
-            } else if ("Mestrado".equals(curriculo.getTitulacao())) {
-                curriculo.setExtrato(15);
-            } else {
-                curriculo.setExtrato(0);
-            }
             curriculoRN.salvar(curriculo);
 
             Login loginLogado = UsuarioUtil.obterUsuarioLogado();
@@ -145,7 +133,6 @@ public class CurriculoBean {
     }
 
     public String excluirCurriculo() {
-        System.out.println("Curriculo " + getCurriculo());
         if (curriculoRN.remover(getCurriculo())) {
             BeanUtil.criarMensagemDeInformacao("Curriculo excluído", "Curriculo: " + getCurriculo().getNome());
         } else {
@@ -204,42 +191,12 @@ public class CurriculoBean {
     public Integer getTotalPontos() {
         Login usuarioLogado = UsuarioUtil.obterUsuarioLogado();
         curriculo = usuarioLogado.getCurriculo();
-
-        if (curriculo != null
-                && curriculo.getId() != null) {
-            totalPontos = 0;
-            totalPontos += (curriculo.getExtrato() == null ? 0 : curriculo.getExtrato());
-
-            List<Livro> livros = curriculo.getLivroList();
-            List<Periodico> periodicos = curriculo.getPeriodicoList();
-            List<Orientacao> orientacoes = curriculo.getOrientacaoList();
-
-            if (livros != null) {
-                for (Livro l : livros) {
-                    totalPontos += l.getEstrato();
-                }
-            }
-
-            if (periodicos != null) {
-                for (Periodico p : periodicos) {
-                    totalPontos += p.getEstrato();
-
-                }
-            }
-
-            if (orientacoes != null) {
-                for (Orientacao orientacaoTemp : orientacoes) {
-                    totalPontos += orientacaoTemp.getEstrato();
-                }
-            }
+        if (curriculo != null) {
+            Integer ponto = curriculoRN.totalPontos(curriculo);
+            curriculo.setFco(ponto);
+            curriculoRN.salvar(curriculo);
+            totalPontos = ponto;
         }
-        curriculo.setFco(totalPontos);
-
-        Login loginLogado = UsuarioUtil.obterUsuarioLogado();
-        loginLogado.setCurriculo(curriculo);
-
-        loginRN.salvar(loginLogado);
-        curriculoRN.salvar(curriculo);
         return totalPontos;
     }
 

@@ -10,7 +10,7 @@
             <h:form>
                 <p:dataTable id="dataTable"
                              style="text-align: center"
-                             value="#{curriculoBean.curriculos}" 
+                             value="#{avaliacaoBean.curriculos}" 
                              var="curriculo"
                              emptyMessage="Sem registro para a exibição.">
 
@@ -29,32 +29,20 @@
                               filterMatchMode="contains"> 
                         <h:outputLabel value="#{curriculo.area.nome}"/>
                     </p:column>
-
-                    <p:column headerText="Editar"
-                              rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
-                        <p:commandButton
-                            id="cbAlterar" 
-                            ajax="false" 
-                            action="#{editalBean.editar()}" 
-                            title="Editar"
-                            icon="ui-icon-pencil">
-                            <f:setPropertyActionListener 
-                                target="#{editalBean.edital}" 
-                                value="#{edital}"/>
-                        </p:commandButton>
+                    
+                    <p:column headerText="FCO">
+                        <h:outputLabel value="#{curriculo.fco}"/>
                     </p:column>
-                    <p:column 
-                        headerText="Excluir"
-                        rendered="#{usuarioBean.secretaria or usuarioBean.administrador}">
-                        <p:commandButton 
-                            id="cbExcluir"
-                            ajax="false" 
-                            title="Excluir"
-                            icon="ui-icon-trash"
-                            action="#{editalBean.excluir}" >
-                            <f:setPropertyActionListener 
-                                target="#{editalBean.edital}" 
-                                value="#{edital}"/>
+
+                    <p:column headerText="Status" filterBy="#{curriculo.status}">
+                        <h:outputText value="#{curriculo.status}"/>
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton icon="ui-icon-search"
+                                         action="/secretaria/wizardAvaliacao.xhtml">
+                            <f:setPropertyActionListener target="#{avaliacaoBean.curriculo}"
+                                                         value="#{curriculo}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>

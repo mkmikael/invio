@@ -17,7 +17,13 @@ public class LivroRN {
 
     public boolean salvar(Livro livro) {
         boolean salvou = false;
-
+        if (livro.getTipoLivro() == 30 && livro.getCapitulo().equals("")) {
+            livro.setEstrato(30);
+        } else if (livro.getTipoLivro() == 30 && livro.getCapitulo() != null) {
+            livro.setEstrato(20);
+        } else if (livro.getTipoLivro() == 10) {
+            livro.setEstrato(10);
+        }
         if (livro.getId() == null) {
             if (dao.criar(livro)) {
                 salvou = true;

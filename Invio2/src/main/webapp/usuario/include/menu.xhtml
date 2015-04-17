@@ -30,7 +30,12 @@
                 <p:menuitem rendered="#{usuarioBean.administrador}"
                             value="Listar Usuários"  ajax="false"
                             icon="ui-icon-arrowrefresh-1-w" 
-                            action="/administracao/usuarios/listarUsuarios.xhtml"/>
+                            outcome="/administracao/usuarios/listarUsuarios.xhtml"/>
+                
+                <p:menuitem rendered="#{usuarioBean.administrador}"
+                            value="Configuração"
+                            icon="ui-icon-settings" 
+                            outcome="/administracao/configuracao.xhtml"/>
             </p:submenu>
 
             <p:submenu label="Secretaria" rendered="#{usuarioBean.secretaria}">
@@ -49,6 +54,8 @@
                             icon="ui-icon-document" 
                             target="_blank"
                             outcome="/secretaria/relatorioDeFco.xhtml"/>
+            
+                
             </p:submenu>
 
             <p:submenu
@@ -76,6 +83,7 @@
                     value="Meu Perfil"  
                     title="Informações pessoais, titulação e área de atuação"
                     ajax="false"
+                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                     icon="ui-icon-contact"
                     action="#{curriculoBean.meuCurriculo}"/>
 
@@ -100,6 +108,7 @@
                     value="Periódicos" 
                     title="Lista de publicações em periódicos"
                     icon="ui-icon-document"
+                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                     ajax="false"
                     action="#{curriculoBean.irParaProducao('periodico/periodicos.xhtml')}"/>
 
@@ -107,6 +116,7 @@
                     value="Livros" 
                     title="Publicações de livros como autor ou editor e capítulos"
                     icon="ui-icon-note"
+                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                     ajax="false"
                     action="#{curriculoBean.irParaProducao('livro/livros.xhtml')}"/>
 
@@ -114,6 +124,7 @@
                     value="Orientações " 
                     title="Indicação dos alunos orientados"
                     icon="ui-icon-person"
+                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                     ajax="false"
                     action="#{curriculoBean.irParaProducao('orientacao/orientacoes.xhtml')}"/>  
                 

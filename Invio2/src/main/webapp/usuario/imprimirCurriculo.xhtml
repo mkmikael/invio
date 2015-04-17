@@ -26,7 +26,8 @@
             <table class="table table-bordered">
                 <tr>
                     <td>Matricula: #{usuarioBean.usuarioLogado.curriculo.matricula}</td>
-                    <td colspan="2">Titulação: #{usuarioBean.usuarioLogado.curriculo.titulacao}</td>
+                    <td colspan="2">Titulação: #{usuarioBean.usuarioLogado.curriculo.titulacao} 
+                        <b>(#{usuarioBean.usuarioLogado.curriculo.extrato} Pontos)</b></td>
                 </tr>
                 <tr>
                     <td>Cidade: #{usuarioBean.usuarioLogado.curriculo.cidade}</td>
@@ -61,7 +62,7 @@
                     </td>
                     <td>
                         <b>
-                            FCO: #{usuarioBean.usuarioLogado.curriculo.fco + usuarioBean.usuarioLogado.curriculo.extrato}
+                            FCO: #{curriculoBean.totalPontos}
                         </b>
                     </td>
                 </tr>
@@ -72,7 +73,7 @@
             <h3>Livros</h3>
             <hr/>
             <c:if test="#{livroBean.livrosAtuais == null or
-                                     livroBean.livrosAtuais.size() == 0}">
+                          livroBean.livrosAtuais.size() == 0}">
                 <h5>Sem Livros</h5>
             </c:if>
             <h:dataTable value="#{livroBean.livrosAtuais}"
@@ -114,7 +115,7 @@
             <h3>Orientações</h3>
             <hr/>
             <c:if test="#{orientacaoBean.orientacoesAtuais == null or
-                                     orientacaoBean.orientacoesAtuais.size() == 0}">
+                          orientacaoBean.orientacoesAtuais.size() == 0}">
                 <h5>Sem Orientações</h5>
             </c:if>
             <h:dataTable value="#{orientacaoBean.orientacoesAtuais}"
@@ -157,7 +158,7 @@
             <h3>Periódicos</h3>
             <hr/>
             <c:if test="#{periodicoBean.periodicosAtuais == null or
-                                     periodicoBean.periodicosAtuais.size() == 0}">
+                          periodicoBean.periodicosAtuais.size() == 0}">
                 <h5>Sem Publicações</h5>
             </c:if>
             <h:dataTable value="#{periodicoBean.periodicosAtuais}"

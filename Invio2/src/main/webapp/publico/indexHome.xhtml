@@ -17,6 +17,14 @@
                     value="Seja bem vindo(a) ao sistema Invio #{usuarioBean.usuarioLogado.email} !"/>
             </div>
 
+            <h:panelGroup rendered="#{configuracaoBean.isPeriodoDeAvaliacao}">
+                <p>
+                    <b>
+                        Em período de avaliação, não é possível cadastrar produções.
+                    </b>
+                </p>
+            </h:panelGroup>
+            
             <div align="right" id="creditos">
                 <h:graphicImage library="imagem" name="creditosBpmLab.png"/>
             </div>

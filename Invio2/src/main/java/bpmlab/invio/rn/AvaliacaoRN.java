@@ -5,6 +5,7 @@
  */
 package bpmlab.invio.rn;
 
+import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Orientacao;
@@ -49,6 +50,9 @@ public class AvaliacaoRN implements Serializable {
         } else {
             return false; //Raramente ocorrerá
         }
+        rnCurriculo.verificarStatus(curriculo);
+        new GenericDAO<Object>().alterar(object);
+        curriculo.setFco(rnCurriculo.totalPontos(curriculo));
         return rnCurriculo.salvar(curriculo);
     }
     
@@ -66,6 +70,9 @@ public class AvaliacaoRN implements Serializable {
         } else {
             return false; //Raramente ocorrerá
         }
+        rnCurriculo.verificarStatus(curriculo);
+        new GenericDAO<Object>().alterar(object);
+        curriculo.setFco(rnCurriculo.totalPontos(curriculo));
         return rnCurriculo.salvar(curriculo);
     }
     
@@ -84,6 +91,10 @@ public class AvaliacaoRN implements Serializable {
         } else {
             return false; //Raramente ocorrerá
         }
+        //AKI
+        rnCurriculo.verificarStatus(curriculo);
+        new GenericDAO<Object>().alterar(object);
+        curriculo.setFco(rnCurriculo.totalPontos(curriculo));
         return rnCurriculo.salvar(curriculo);
     }
 

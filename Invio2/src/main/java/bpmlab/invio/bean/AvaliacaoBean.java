@@ -4,6 +4,9 @@ import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.rn.AvaliacaoRN;
 import bpmlab.invio.rn.CurriculoRN;
+import bpmlab.invio.rn.LivroRN;
+import bpmlab.invio.rn.OrientacaoRN;
+import bpmlab.invio.rn.PeriodicoRN;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -38,6 +41,10 @@ public class AvaliacaoBean implements Serializable {
     }
 
     public void setCurriculo(Curriculo curriculo) {
+        curriculo.setLivroList(new LivroRN().obterLivrosAtuais(curriculo));
+        curriculo.setOrientacaoList(new OrientacaoRN().obterOrientacoesAtuais(curriculo));
+        curriculo.setPeriodicoList(new PeriodicoRN().obterPeriodicosAtuais(curriculo));
+        new CurriculoRN().verificarStatus(curriculo);
         this.curriculo = curriculo;
     }
 

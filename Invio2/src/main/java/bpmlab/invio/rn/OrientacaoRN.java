@@ -12,17 +12,10 @@ public class OrientacaoRN {
     private OrientacaoDAO dao = new OrientacaoDAO();
 
     public boolean salvar(Orientacao orientacao) {
-        if (orientacao.getAluno().equals("") ||
-                orientacao.getTipoOrientacao() == 0 ||
-                orientacao.getTipoBolsa().equals("") ||
-                orientacao.getPFinal() == null) {
-            return false;
+        if (orientacao.getId() == null || orientacao.getId() == 0) {
+            return dao.criar(orientacao);
         } else {
-            if (orientacao.getId() == null || orientacao.getId() == 0) {
-                return dao.criar(orientacao);
-            } else {
-                return dao.alterar(orientacao);
-            }
+            return dao.alterar(orientacao);
         }
     }
 
