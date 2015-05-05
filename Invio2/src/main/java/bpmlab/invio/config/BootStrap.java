@@ -7,11 +7,7 @@ package bpmlab.invio.config;
 
 import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.dao.JpaUtil;
-import bpmlab.invio.entidade.Area;
-import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
-import bpmlab.invio.entidade.Qualis;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
@@ -29,8 +25,9 @@ public class BootStrap implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        GenericDAO dao = new GenericDAO();
-        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+        JpaUtil.getInstance();
+//        GenericDAO dao = new GenericDAO();
+//        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
         try {
 //            Cadastros Básicos
 //            Area area = new Area(null, "Computação");
@@ -58,8 +55,9 @@ public class BootStrap implements ServletContextListener {
 //            Usuário - FIM
             
 //            Admin
-//            Login admin = new Login(null, encoder.encodePassword("admin", null), "admin", 'A');
+//            Login admin = new Login(null, encoder.encodePassword("invioadmin135", null), "admin", 'A');
 //            dao.criar(admin);
+//            JpaUtil.getInstance().closeEntityManager();
 //            Admin - FIM
             
 //            Secretaria

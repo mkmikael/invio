@@ -41,6 +41,10 @@ public class AreaRN {
         return areaDAO.obterAreas(instituicao);
     }
 
+    public List<Area> obterAreaOrdenada() {
+        return areaDAO.obterAreaOrdenada();
+    }
+
     public List<Area> completeArea(String digitacao) {
         return areaDAO.obterAreaPorCriterio(digitacao);
     }

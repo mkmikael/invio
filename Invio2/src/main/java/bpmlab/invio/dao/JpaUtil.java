@@ -5,8 +5,6 @@
  */
 package bpmlab.invio.dao;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,9 +17,10 @@ public class JpaUtil {
 
     private static final String PERSISTENCE_UNIT = "bpmlab_Invio2_war_1.0-SNAPSHOTPU";
     private static EntityManagerFactory factory;
-    private static EntityManager manager;
-
-    public static EntityManager getEntityManager() {
+    private static JpaUtil jpaUtil;
+    private EntityManager manager;
+    
+    public EntityManager getEntityManager() {
         if (factory == null) {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         }
@@ -31,10 +30,18 @@ public class JpaUtil {
         return manager;
     }
 
-    public static void closeEntityManager() {
-        if (manager.isOpen()) {
+    public void closeEntityManager() {
+        if (manager != null && manager.isOpen()) {
             manager.close();
+            manager = null;
         }
+    }
+    
+    public static JpaUtil getInstance() {
+        if (jpaUtil == null) {
+            jpaUtil = new JpaUtil();
+        }
+        return jpaUtil;
     }
 
     public static void closeFactory() {

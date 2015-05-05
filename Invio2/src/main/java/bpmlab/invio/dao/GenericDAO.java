@@ -9,14 +9,14 @@ import javax.persistence.Query;
 
 public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
 
-    private static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
+    protected static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
 
     public GenericDAO() {
     }
 
     @Override
     public boolean criar(T o) {
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(o);
@@ -29,13 +29,13 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
             }
             return false;
         } finally {
-            JpaUtil.closeEntityManager();
+            closeEntityManager();
         }
     }
 
     @Override
     public boolean excluir(T o) {
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             em.remove(em.merge(o));
@@ -48,13 +48,13 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
             }
             return false;
         } finally {
-            JpaUtil.closeEntityManager();
+            closeEntityManager();
         }
     }
 
     @Override
     public boolean alterar(T o) {
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             em.merge(o);
@@ -67,13 +67,13 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
             }
             return false;
         } finally {
-            JpaUtil.closeEntityManager();
+            closeEntityManager();
         }
     }
 
     @Override
     public T obter(Class<T> classe, Object id) {
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = getEntityManager();
         if (id == null) {
             return null;
         }
@@ -84,13 +84,13 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
         } catch (Exception e) {
             return null;
         } finally {
-            JpaUtil.closeEntityManager();
+            closeEntityManager();
         }
     }
 
     @Override
     public List<T> obterTodos(Class<T> classe) {
-        EntityManager em = JpaUtil.getEntityManager();
+        EntityManager em = getEntityManager();
         String query = classe.getSimpleName() + ".findAll";
         Query q = em.createNamedQuery(query);
         try {
@@ -98,7 +98,7 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
         } catch (Exception e) {
             return null;
         } finally {
-            JpaUtil.closeEntityManager();
+            closeEntityManager();
         }
     }
 
@@ -106,7 +106,10 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
      * @return the entityManager
      */
     protected EntityManager getEntityManager() {
-        return JpaUtil.getEntityManager();
+        return JpaUtil.getInstance().getEntityManager();
     }
 
+    protected void closeEntityManager() {
+        JpaUtil.getInstance().closeEntityManager();
+    }
 }

@@ -12,20 +12,39 @@ import javax.persistence.Query;
 public class AreaDAO extends GenericDAO<Area> {
 
     public List<Area> obterAreaPorCriterio(String digitacao) {
-        String consulta = "select o from Area o where o.nome like'%" + digitacao + "%'";
-        List<Area> areas = getEntityManager().createQuery(consulta).getResultList();
-        JpaUtil.closeEntityManager();
-        return areas;
+        try {
+            String consulta = "select o from Area o where o.nome like'%" + digitacao + "%'";
+            return getEntityManager().createQuery(consulta).getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
+    }
+    
+    public List<Area> obterAreaOrdenada() {
+        try {
+            String consulta = "select a from Area a order by a.nome";
+            return getEntityManager().createQuery(consulta).getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
     }
     
     public List<Area> obterAreas(Instituicao instituicao) {
-        String consulta = "select distinct p.area from Programa p "
-                + "where p.instituicao = :instituicao";
-        Query query = getEntityManager().createQuery(consulta);
-        query.setParameter("instituicao", instituicao);
-        List<Area> areas = query.getResultList();
-        JpaUtil.closeEntityManager();
-        return areas;
+        try {
+            String consulta = "select distinct p.area from Programa p "
+                    + "where p.instituicao = :instituicao";
+            Query query = getEntityManager().createQuery(consulta);
+            query.setParameter("instituicao", instituicao);
+            return query.getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
     }
     
 }

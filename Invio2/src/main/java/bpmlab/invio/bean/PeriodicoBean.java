@@ -7,7 +7,7 @@ import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Periodico;
 import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.PeriodicoRN;
-import bpmlab.invio.rn.pdf.QualisRN;
+import bpmlab.invio.rn.QualisRN;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -123,7 +123,8 @@ public class PeriodicoBean {
 
     public List<String> complete(String query) {
         QualisRN qualisRN = new QualisRN();
-        return qualisRN.obterTodosTitulos(query);
+        String area = UsuarioUtil.obterUsuarioLogado().getCurriculo().getArea().getNome();
+        return qualisRN.obterPorArea(area, query);
     }
 
     public String voltar() {

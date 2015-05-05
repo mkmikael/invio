@@ -19,12 +19,12 @@ public class PlanoDAO extends GenericDAO<Plano> {
         String query = "SELECT p FROM Plano p INNER JOIN p.curriculoList cl WHERE cl = :c ORDER BY p.id desc";
         Query q = getEntityManager().createQuery(query);
         q.setParameter("c", c.getId());
-        JpaUtil.closeEntityManager();
         try {
-            return (List<Plano>) q.getResultList();
+            return q.getResultList();
         } catch (Exception e) {
             return null;
+        } finally {
+            closeEntityManager();
         }
-
     }
 }

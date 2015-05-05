@@ -41,9 +41,18 @@ public class GenericDAOTest {
 
     @Test
     public void testCriar() {
-        GenericDAO dao = new GenericDAO();
-        Login login = new Login(null, "123", "email", 'A');
-        dao.criar(login);
+        Login login = null;
+        GenericDAO dao = null;
+        try {
+            dao = new GenericDAO();
+            login = new Login(null, "123", "email", 'A');
+            dao.criar(login);
+        } catch (Exception e) {
+            fail();
+        } finally {
+            JpaUtil.getInstance().closeEntityManager();
+        }
         assertNotNull(login.getId());
+        dao.excluir(login);
     }
 }

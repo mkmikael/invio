@@ -8,10 +8,8 @@ package bpmlab.invioscript;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -20,15 +18,21 @@ import java.util.Set;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        escreverArquivo(LerXls.listaDeQualis(chooser.getSelectedFile()),
+                LerXls.listaDeArea(chooser.getSelectedFile()));
+    }
+
+    public static void escreverArquivo(List<Qualis> listaQualis, List<String> listaAreas) throws IOException {
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         try {
             fileWriter = new FileWriter("/home/bpmlab/inserts.sql");
             bufferedWriter = new BufferedWriter(fileWriter);
-            Map<String, Object> params = ConstruirQualis.construir();
-            List<Qualis> qualis = (List<Qualis>) params.get("qualis");
-            List<String> areas = new ArrayList<>((Set<String>) params.get("areas"));
-            
+            List<Qualis> qualis = listaQualis;
+            List<String> areas = listaAreas;
+
             bufferedWriter.write("insert into area(nome) values");
             for (int i = 0; i < areas.size() - 1; i++) {
                 bufferedWriter.write("('" + areas.get(i) + "'),");
@@ -36,14 +40,13 @@ public class Main {
             }
             bufferedWriter.write("('" + areas.get(areas.size() - 1) + "');");
             bufferedWriter.newLine();
-            bufferedWriter.write("insert into qualis(issn, titulo, estrato, areaavaliacao, status) values");
             for (int i = 0; i < qualis.size() - 1; i++) {
-                bufferedWriter.write("('" + qualis.get(i).getIssn() + "', '" + qualis.get(i).getTitulo()
+                bufferedWriter.write("insert into qualis(issn, titulo, estrato, areaavaliacao, status) values");
+                bufferedWriter.write("('" + qualis.get(i).getIssn() + "', '" + qualis.get(i).getTitulo().replace("'", "''")
                         + "', '" + qualis.get(i).getEstrato() + "', '" + qualis.get(i).getAreaDeAvaliacao() + "', '"
-                        + qualis.get(i).getStatus() + "'),");
+                        + qualis.get(i).getStatus() + "');");
                 bufferedWriter.newLine();
             }
-            bufferedWriter.write("('" + qualis.get(areas.size() - 1) + "');");
         } catch (Exception e) {
             System.out.println("ERRO!");
         } finally {

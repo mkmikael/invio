@@ -4,7 +4,6 @@
  */
 package bpmlab.invio.rn;
 
-import bpmlab.invio.bean.util.UsuarioUtil;
 import bpmlab.invio.dao.CurriculoDAO;
 import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.entidade.Area;
@@ -15,7 +14,6 @@ import bpmlab.invio.entidade.Orientacao;
 import bpmlab.invio.entidade.Periodico;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

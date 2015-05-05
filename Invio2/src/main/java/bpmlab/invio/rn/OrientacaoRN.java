@@ -61,7 +61,7 @@ public class OrientacaoRN {
     public Integer obterExtratoPorTipoOrientacao(int tipo) {
         switch (tipo) {
             case 1:
-                return 2;
+                return 50;
             case 2:
                 return 2;
             case 3:
@@ -84,7 +84,7 @@ public class OrientacaoRN {
     public String obterTipoOrientacao(Integer tipo) {
         switch (tipo) {
             case 1:
-                return "Bolsista DTI (Orientação)";
+                return "Bolsista de Produtividade CNPq";
             case 2:
                 return "Dissertação de Mestrado (Co-orientação)";
             case 3:

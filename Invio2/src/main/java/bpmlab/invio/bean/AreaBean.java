@@ -27,7 +27,7 @@ public class AreaBean {
 
     public List<Area> getAreas() {
         if (areas == null) {
-            areas = areaRN.obterTodos();
+            areas = areaRN.obterAreaOrdenada();
         }
         return areas;
     }

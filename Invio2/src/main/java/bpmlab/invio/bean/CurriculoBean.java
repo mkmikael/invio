@@ -17,7 +17,7 @@ import bpmlab.invio.rn.LivroRN;
 import bpmlab.invio.rn.LoginRN;
 import bpmlab.invio.rn.OrientacaoRN;
 import bpmlab.invio.rn.PeriodicoRN;
-import bpmlab.invio.rn.pdf.QualisRN;
+import bpmlab.invio.rn.QualisRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -257,7 +257,7 @@ public class CurriculoBean {
 
     public List<String> complete(String query) {
         QualisRN qualisRN = new QualisRN();
-        return qualisRN.obterTodosTitulos(query);
+        return qualisRN.obterTodosTitulosArea(query);
     }
 
     public List<Area> completeArea(String query) {

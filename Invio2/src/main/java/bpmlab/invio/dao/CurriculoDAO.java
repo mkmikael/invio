@@ -2,7 +2,6 @@ package bpmlab.invio.dao;
 
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,22 +11,25 @@ import java.util.List;
 public class CurriculoDAO extends GenericDAO<Curriculo> {
 
     public List<Curriculo> findCurriculoByUsuario(Login loginLogado) {
-        List<Curriculo> curriculos;
-        String consulta = "select o.curriculo from Login o where o.id=" + loginLogado.getId();
-        curriculos = getEntityManager().createQuery(consulta).getResultList();
-        JpaUtil.closeEntityManager();
-        if (curriculos == null || curriculos.isEmpty()) {
-            return new ArrayList<Curriculo>();
-        } else {
-            return curriculos;
+        try {
+            String consulta = "select o.curriculo from Login o where o.id=" + loginLogado.getId();
+            return getEntityManager().createQuery(consulta).getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
         }
     }
     
     public List<Curriculo> obterTodosOrdenado() {
-        String consulta = "select c from Curriculo c order by c.fco desc";
-        List lista = getEntityManager().createQuery(consulta).getResultList();
-        JpaUtil.closeEntityManager();
-        return lista;
+        try {
+            String consulta = "select c from Curriculo c order by c.fco desc";
+            return getEntityManager().createQuery(consulta).getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
     }
      
 }

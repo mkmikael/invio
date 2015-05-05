@@ -1,10 +1,8 @@
 package bpmlab.invio.rn;
 
 import bpmlab.invio.dao.PeriodicoDAO;
-import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Periodico;
-import bpmlab.invio.rn.pdf.QualisRN;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -57,6 +55,10 @@ public class PeriodicoRN {
 
     public List<Periodico> obterPeriodicosPassados(Curriculo curriculo) {
         return periodicoDAO.obterPeriodicosPassados(curriculo, anoLimite);
+    }
+
+    public List<String> obterPorArea(String area, String palavra) {
+        return qualisRN.obterPorArea(area, palavra);
     }
     
 }
