@@ -5,15 +5,12 @@
  */
 package bpmlab.invio.config;
 
-import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.dao.JpaUtil;
-import bpmlab.invio.entidade.Login;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
 /**
  *

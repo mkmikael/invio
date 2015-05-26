@@ -8,6 +8,6 @@ and open the template in the editor.
     Author     : Simeia Lima
 */
 
-.ui-widget, .ui-widget .ui-widget {
-    font-size: 96%;
+.ui-widget, .ui-widget .ui-widget, .ui-datatable table, .ui-widget-content, ui-panel-content ui-widget-content {
+    font-size: 12px !important;
 }

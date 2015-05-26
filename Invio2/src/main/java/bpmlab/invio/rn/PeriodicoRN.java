@@ -12,9 +12,6 @@ public class PeriodicoRN {
     private static final Logger LOG = Logger.getLogger(PeriodicoRN.class.getName());
     private QualisRN qualisRN = new QualisRN();
     private PeriodicoDAO periodicoDAO = new PeriodicoDAO();
-    private Calendar c = Calendar.getInstance();
-    private String anoAtual = String.valueOf(c.getWeekYear());
-    private String anoLimite = String.valueOf(c.getWeekYear() - 4);
 
     public boolean salvar(Periodico periodico) {
         boolean salvou = false;
@@ -50,10 +47,16 @@ public class PeriodicoRN {
     }
 
     public List<Periodico> obterPeriodicosAtuais(Curriculo curriculo) {
+        LOG.log(Level.INFO, "Obtendo Periodicos Atuais");
+        Calendar c = Calendar.getInstance();
+        String anoAtual = String.valueOf(c.getWeekYear());
+        String anoLimite = String.valueOf(c.getWeekYear() - 5);
         return periodicoDAO.obterPeriodicosAtuais(curriculo, anoAtual, anoLimite);
     }
 
     public List<Periodico> obterPeriodicosPassados(Curriculo curriculo) {
+        Calendar c = Calendar.getInstance();
+        String anoLimite = String.valueOf(c.getWeekYear() - 5);
         return periodicoDAO.obterPeriodicosPassados(curriculo, anoLimite);
     }
 

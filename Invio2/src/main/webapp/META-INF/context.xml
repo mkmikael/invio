@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="false" path="/Invio2">
-    <Resource auth="Container"
+  <!--    <Resource auth="Container"
               name="jdbc/invio"
               global="jdbc/invio"
               driverClassName="com.mysql.jdbc.Driver"
@@ -11,5 +11,5 @@
               username="root"
               password="root"
               type="javax.sql.DataSource"
-              url="jdbc:mysql://localhost:3306/invio"/>
+              url="jdbc:mysql://localhost:3306/invio"/>-->
 </Context>

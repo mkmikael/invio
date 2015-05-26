@@ -2,6 +2,7 @@ package bpmlab.invio.bean;
 
 import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.bean.util.UsuarioUtil;
+import bpmlab.invio.dao.QualisDAO;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Periodico;
@@ -9,6 +10,7 @@ import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.PeriodicoRN;
 import bpmlab.invio.rn.QualisRN;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ public class PeriodicoBean {
     private static final Logger LOG = Logger.getLogger(PeriodicoBean.class.getName());
     private Periodico periodico = new Periodico();
     private final PeriodicoRN periodicoRN = new PeriodicoRN();
+    private List<Periodico> periodicosAtuais;
 
     public PeriodicoBean() {
     }
@@ -39,8 +42,11 @@ public class PeriodicoBean {
     }
 
     public List<Periodico> getPeriodicosAtuais() {
-        Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
-        return periodicoRN.obterPeriodicosAtuais(curriculo);
+        if (periodicosAtuais == null) {
+            Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+            periodicosAtuais = periodicoRN.obterPeriodicosAtuais(curriculo);
+        }
+        return periodicosAtuais;
     }
 
     public List<Periodico> getPeriodicosPassados() {
@@ -80,7 +86,16 @@ public class PeriodicoBean {
             BeanUtil.criarMensagemDeErro(
                     "Erro ao salvar o Periódico.",
                     "Preencha o campo Ano Publicação.");
+        } else if (Integer.parseInt(periodico.getAno()) < Calendar.getInstance().getWeekYear() - 5) {
+            BeanUtil.criarMensagemDeErro("O periódico deve ter sido publicado nos últimos 5 anos.", "");
         } else {
+            QualisRN rn = new QualisRN();
+            int estrato = rn.obterEstrato(periodico.getRevista(), curriculo.getArea().getNome());
+            if (estrato == 0) {
+                BeanUtil.criarMensagemDeErro("A revista esta incorreta.", "");
+                return;
+            }
+            LOG.info(periodico.getRevista());
             periodico.setCurriculo(curriculo);
             periodico.setArquivo("");
 
@@ -104,12 +119,10 @@ public class PeriodicoBean {
         periodico = new Periodico();
     }
 
-    public void excluirPeriodico() {
+    public String excluirPeriodico() {
         periodico = new PeriodicoRN().obter(periodico.getId());
-        LOG.log(Level.INFO, "AKI");
         LOG.log(Level.INFO, periodico.toString());
         if (periodicoRN.remover(periodico)) {
-            LOG.log(Level.INFO, "AKI");
             BeanUtil.criarMensagemDeInformacao(
                     "Sucesso",
                     "Periódico excluído");
@@ -119,6 +132,9 @@ public class PeriodicoBean {
                     "Não foi possível excluir o login");
         }
         periodico = new Periodico();
+        Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
+        periodicosAtuais = periodicoRN.obterPeriodicosAtuais(curriculo);
+        return "/usuario/cadastro/curriculo/periodico/periodicos.xhtml";
     }
 
     public List<String> complete(String query) {

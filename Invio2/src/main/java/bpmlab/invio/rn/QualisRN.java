@@ -18,24 +18,28 @@ public class QualisRN {
 
     public int obterEstrato(String titulo, String area) {
         String estrato = dao.obterEstrato(titulo, area);
-        if (estrato.equals("A1")) {
-            return 50;
-        } else if (estrato.equals("A2")) {
-            return 45;
-        } else if (estrato.equals("B1")) {
-            return 40;
-        } else if (estrato.equals("B2")) {
-            return 30;
-        } else if (estrato.equals("B3")) {
-            return 25;
-        } else if (estrato.equals("B4")) {
-            return 20;
-        } else if (estrato.equals("B5")) {
-            return 10;
-        } else if (estrato.equals("C")) {
-            return 5;
-        } else {
+        if (estrato == null) {
             return 0;
+        }
+        switch (estrato) {
+            case "A1":
+                return 50;
+            case "A2":
+                return 45;
+            case "B1":
+                return 40;
+            case "B2":
+                return 30;
+            case "B3":
+                return 25;
+            case "B4":
+                return 20;
+            case "B5":
+                return 10;
+            case "C":
+                return 5;
+            default:
+                return 0;
         }
     }
 
