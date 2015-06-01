@@ -1,20 +1,30 @@
 package bpmlab.invio.dao;
 
+import bpmlab.invio.entidade.Area;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Id;
 import javax.persistence.Query;
 
-public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
+public class GenericDAO<T> implements Serializable {
 
     protected static final Logger LOG = Logger.getLogger(GenericDAO.class.getName());
 
     public GenericDAO() {
     }
 
-    @Override
+    public boolean salvar(T o) {
+        if (getId(o) == null) {
+            return criar(o);
+        } else {
+            return alterar(o);
+        }
+    }
+
     public boolean criar(T o) {
         EntityManager em = getEntityManager();
         try {
@@ -33,7 +43,6 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
         }
     }
 
-    @Override
     public boolean excluir(T o) {
         EntityManager em = getEntityManager();
         try {
@@ -52,7 +61,6 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
         }
     }
 
-    @Override
     public boolean alterar(T o) {
         EntityManager em = getEntityManager();
         try {
@@ -71,35 +79,20 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
         }
     }
 
-    @Override
     public T obter(Class<T> classe, Object id) {
         EntityManager em = getEntityManager();
-        if (id == null) {
-            return null;
-        }
         String query = classe.getSimpleName() + ".findById";
         final Query q = em.createNamedQuery(query);
-        try {
-            return (T) q.setParameter("id", id).getSingleResult();
-        } catch (Exception e) {
-            return null;
-        } finally {
-            closeEntityManager();
-        }
+        closeEntityManager();
+        return (T) q.setParameter("id", id).getSingleResult();
     }
 
-    @Override
     public List<T> obterTodos(Class<T> classe) {
         EntityManager em = getEntityManager();
         String query = classe.getSimpleName() + ".findAll";
         Query q = em.createNamedQuery(query);
-        try {
-            return (List<T>) q.getResultList();
-        } catch (Exception e) {
-            return null;
-        } finally {
-            closeEntityManager();
-        }
+        closeEntityManager();
+        return q.getResultList();
     }
 
     /**
@@ -112,4 +105,23 @@ public class GenericDAO<T> implements InterfaceDAO<T>, Serializable {
     protected void closeEntityManager() {
         JpaUtil.getInstance().closeEntityManager();
     }
+
+    private static Object getId(Object o) {
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if (declaredField.isAnnotationPresent(Id.class)) {
+                if (!declaredField.isAccessible()) {
+                    declaredField.setAccessible(true);
+                }
+                try {
+                    return declaredField.get(o);
+                } catch (Exception e) {
+                    LOG.log(Level.SEVERE, "ERRO DE REFLECÇÃO AO BUSCAR ID", e);
+                    return null;
+                }
+            }
+        }
+        return null;
+    }
+
 }

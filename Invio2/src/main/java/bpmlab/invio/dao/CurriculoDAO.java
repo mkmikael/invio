@@ -21,6 +21,13 @@ public class CurriculoDAO extends GenericDAO<Curriculo> {
         }
     }
     
+    public List<Curriculo> obterCurriculoPorNome(String nome) {
+        String jpql = "select * from Curriculo where nome like :nome";
+        return getEntityManager().createQuery(jpql, Curriculo.class)
+                .setParameter("nome", "%" + nome + "%")
+                .getResultList();
+    }
+    
     public List<Curriculo> obterTodosOrdenado() {
         try {
             String consulta = "select c from Curriculo c order by c.fco desc";

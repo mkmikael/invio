@@ -18,35 +18,33 @@ public class JpaUtil {
     private static final String PERSISTENCE_UNIT = "bpmlab_Invio2_war_1.0-SNAPSHOTPU";
     private static EntityManagerFactory factory;
     private static JpaUtil jpaUtil;
-    private EntityManager manager;
+    private EntityManager entityManager;
+
+    private JpaUtil() {
+    }
     
-    public EntityManager getEntityManager() {
+    public EntityManagerFactory getEntityManagerFactory() {
         if (factory == null) {
             factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         }
-        if (manager == null || !manager.isOpen()) {
-            manager = factory.createEntityManager();
-        }
-        return manager;
+        return factory;
+    }
+
+    public EntityManager getEntityManager() {
+        entityManager = factory.createEntityManager();
+        return entityManager;
     }
 
     public void closeEntityManager() {
-        if (manager != null && manager.isOpen()) {
-            manager.close();
-            manager = null;
+        if (entityManager != null || !entityManager.isOpen()) {
+            entityManager.close();
         }
     }
-    
+
     public static JpaUtil getInstance() {
         if (jpaUtil == null) {
             jpaUtil = new JpaUtil();
         }
         return jpaUtil;
-    }
-
-    public static void closeFactory() {
-        if (factory != null || factory.isOpen()) {
-            factory.close();
-        }
     }
 }

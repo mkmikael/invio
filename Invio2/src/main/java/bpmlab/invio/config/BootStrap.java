@@ -22,53 +22,11 @@ public class BootStrap implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        JpaUtil.getInstance();
-//        GenericDAO dao = new GenericDAO();
-//        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
-        try {
-//            Cadastros Básicos
-//            Area area = new Area(null, "Computação");
-//            dao.criar(area);
-//            Qualis qualis = new Qualis("Programação", "Computação", "1234");
-//            qualis.setEstrato("A1");
-//            qualis.setStatus("Atualizado");
-//            dao.criar(qualis);
-//            Cadastros Básicos - FIM
-
-//            Usuário
-//            Curriculo curriculo = new Curriculo(null, "987.321.432-12", "Mikael dos Santos Lima", "Rua", 
-//                    "Centro", "Barcarena", "PA", "Brasil", "(91)1322-1234", "mkmikael@gmail.com", "12342", 
-//                    "lattes/1241", "Masculino");
-//            curriculo.setNumeroEnd("4002");
-//            curriculo.setTitulacao("Doutorado");
-//            curriculo.setDtNascimento(new Date());
-//            curriculo.setInstitutoCampi("UFRA");
-//            curriculo.setCep("68445-000");
-//            curriculo.setArea(area);
-//            dao.criar(curriculo);
-//            Login user = new Login(null, encoder.encodePassword("123", null), "mkmikael@gmail.com", 'A');
-//            user.setCurriculo(curriculo);
-//            dao.criar(user);
-//            Usuário - FIM
-            
-//            Admin
-//            Login admin = new Login(null, encoder.encodePassword("invioadmin135", null), "admin", 'A');
-//            dao.criar(admin);
-//            JpaUtil.getInstance().closeEntityManager();
-//            Admin - FIM
-            
-//            Secretaria
-//            Login secretaria = new Login(null, encoder.encodePassword("123", null), "secretaria", 'S');
-//            dao.criar(secretaria);
-//            Secretaria - FIM
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "ERRO NO BOOTSTRAP", e);
-        }
+        JpaUtil.getInstance().getEntityManagerFactory();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        JpaUtil.closeFactory();
     }
 
 }

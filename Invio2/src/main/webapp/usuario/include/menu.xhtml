@@ -2,159 +2,49 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
       xmlns:p="http://primefaces.org/ui">
-    <h:form style="margin: 1px; "> 
-        <p:menu>
-            <p:submenu rendered="false"
-                       label="Edital" 
-                       icon="ui-icon-refresh">
-                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                <p:menuitem
-                    rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
-                    value="Novo Edital"   
-                    icon="ui-icon-arrowrefresh-1-w"
-                    outcome="/secretaria/edital/editalForm.xhtml"/>
-                <p:menuitem 
-                    value="Lista de Editais"
-                    icon="ui-icon-arrowrefresh-1-w" 
-                    outcome="/publico/edital/listaEdital.xhtml"/>
-            </p:submenu>
+    <h:form>
+        <div id="menu" class="ui vertical pointing menu width-100">
+            <h:commandLink class="item"
+                           title="Informações pessoais, titulação e área de atuação"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.meuCurriculo}">
+                <span class="glyphicon glyphicon-user pull-right"></span> Meu Perfil
+            </h:commandLink>
 
-            <p:submenu label="Administrador"
-                       rendered="#{usuarioBean.administrador}">
-                <p:menuitem rendered="#{usuarioBean.administrador}"
-                            value="Editar Permissão"  
-                            icon="ui-icon-pencil" 
-                            outcome="/administracao/usuarios/wizardEditarPerfil.xhtml"/>
+            <h:commandLink class="item"
+                           title="Lista de publicações em periódicos"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('periodico/periodicos.xhtml')}">
+                <span class="glyphicon glyphicon-file pull-right"></span> Periodicos
+            </h:commandLink>
 
-                <p:menuitem rendered="#{usuarioBean.administrador}"
-                            value="Listar Usuários"  ajax="false"
-                            icon="ui-icon-arrowrefresh-1-w" 
-                            outcome="/administracao/usuarios/listarUsuarios.xhtml"/>
-                
-                <p:menuitem rendered="#{usuarioBean.administrador}"
-                            value="Configuração"
-                            icon="ui-icon-settings" 
-                            outcome="/administracao/configuracao.xhtml"/>
-            </p:submenu>
+            <h:commandLink class="item"
+                           title="Publicações de livros como autor ou editor e capítulos"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('livro/livros.xhtml')}">
+                <span class="glyphicon glyphicon-book pull-right"></span> Livros
+            </h:commandLink>
 
-            <p:submenu label="Secretaria" rendered="#{usuarioBean.secretaria}">
-                <p:menuitem 
-                    rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
-                    value="Avaliar Curriculos"
-                    ajax="false"
-                    icon="ui-icon-arrowrefresh-1-w"
-                    action="/secretaria/wizardAvaliacao.xhtml"/>
-                <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
-                            value="Listar Currículos"
-                            icon="ui-icon-arrowrefresh-1-w" 
-                            outcome="/secretaria/curriculo/listaCurriculo.xhtml"/>
-                <p:menuitem rendered="#{usuarioBean.administrador or usuarioBean.secretaria}"
-                            value="Relatório de FCO"
-                            icon="ui-icon-document" 
-                            target="_blank"
-                            outcome="/secretaria/relatorioDeFco.xhtml"/>
-            
-                
-            </p:submenu>
+            <h:commandLink class="item"
+                           title="Indicação dos alunos orientados"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('orientacao/orientacoes.xhtml')}">
+                <span class="glyphicon glyphicon-asterisk pull-right"></span> Orientações
+            </h:commandLink>
 
-            <p:submenu
-                rendered="false #{usuarioBean.administrador}"
-                label="Cadastros" 
-                icon="ui-icon-refresh">
-                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                <p:menuitem
-                    value="Programa"   
-                    ajax="false"
-                    icon="ui-icon-arrowrefresh-1-w"
-                    action="/usuario/cadastro/programa/listar.xhtml"/>
-                <p:menuitem 
-                    value="Instituição"  ajax="false"
-                    icon="ui-icon-arrowrefresh-1-w" 
-                    action="/usuario/cadastro/instituicao/listar.xhtml"/>
-            </p:submenu>
-
-
-            <p:submenu 
-                rendered="#{!usuarioBean.administrador and !usuarioBean.secretaria}"
-                label="Meu Currículo"
-                icon="ui-icon-refresh">
-                <p:menuitem 
-                    value="Meu Perfil"  
-                    title="Informações pessoais, titulação e área de atuação"
-                    ajax="false"
-                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
-                    icon="ui-icon-contact"
-                    action="#{curriculoBean.meuCurriculo}"/>
-
-                <p:menuitem
-                    rendered="false"
-                    value="Frequências" 
-                    title="Lista de frequências"
-                    ajax="false"
-                    icon="ui-icon-document"
-                    action="/usuario/documentacao/listaFrequencias.xhtml"/>
-                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-
-                <p:menuitem 
-                    rendered="false"
-                    value="Relatórios" 
-                    title="Lista de relatórios finais e parciais."
-                    icon="ui-icon-document"
-                    outcome="/usuario/documentacao/listaRelatorios.xhtml"/>
-                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-
-                <p:menuitem 
-                    value="Periódicos" 
-                    title="Lista de publicações em periódicos"
-                    icon="ui-icon-document"
-                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
-                    ajax="false"
-                    action="#{curriculoBean.irParaProducao('periodico/periodicos.xhtml')}"/>
-
-                <p:menuitem 
-                    value="Livros" 
-                    title="Publicações de livros como autor ou editor e capítulos"
-                    icon="ui-icon-note"
-                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
-                    ajax="false"
-                    action="#{curriculoBean.irParaProducao('livro/livros.xhtml')}"/>
-
-                <p:menuitem 
-                    value="Orientações " 
-                    title="Indicação dos alunos orientados"
-                    icon="ui-icon-person"
-                    disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
-                    ajax="false"
-                    action="#{curriculoBean.irParaProducao('orientacao/orientacoes.xhtml')}"/>  
-                
-                <p:menuitem 
-                    value="Imprimir Currículo"  
+            <h:link class="item"
                     title="Imprimir a Ficha Curricular com as Produções"
-                    icon="ui-icon-arrowrefresh-1-w"
                     target="_blank"
-                    outcome="/usuario/imprimirCurriculo.xhtml"/> 
-            </p:submenu>
-            
-            <p:submenu
-                label="Relatórios" 
-                icon="ui-icon-refresh"
-                rendered="false">
-                <!--removido por não interferir no calculo do FCO (Autorizado pela Professora Izildinha)-->
-                <p:menuitem
-                    value="Docentes" 
-                    title="Lista de Docentes cadastrados no sistema."
-                    ajax="false"
-                    icon="ui-icon-person"
-                    action="#{curriculoBean.gerarListaDocentes()}"/>
-            </p:submenu>
+                    outcome="/usuario/imprimirCurriculo.xhtml">
+                <span class="glyphicon glyphicon-download pull-right"></span> Imprimir Curriculo
+            </h:link>
 
-            <p:separator/>
-            <p:menuitem id="misair" 
-                        icon="ui-icon-power"
-                        value="Sair" 
-                        url="#{request.contextPath}/j_spring_security_logout"/>
-        </p:menu> 
+            <a class="item" href="#{request.contextPath}/j_spring_security_logout">
+                <span class="glyphicon glyphicon-log-out pull-right"></span> Sair
+            </a>
+        </div>
     </h:form> 
 </html>
 

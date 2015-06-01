@@ -2,7 +2,6 @@ package bpmlab.invio.bean;
 
 import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.bean.util.UsuarioUtil;
-import bpmlab.invio.dao.QualisDAO;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Periodico;

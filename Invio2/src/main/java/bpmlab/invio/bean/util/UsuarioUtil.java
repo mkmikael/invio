@@ -21,7 +21,9 @@ public class UsuarioUtil {
         Login login = (Login) BeanUtil.lerDaSessao("USUARIO_LOGADO");
         if (login == null) {
             LoginRN loginRN = new LoginRN();
+            if (e.getRemoteUser() == null) return null;
             login = loginRN.obter(e.getRemoteUser());
+            if (login == null) return null;
             if (login.getCurriculo() != null) {
                 login.getCurriculo().getPeriodicoList();
                 login.getCurriculo().getLivroList();

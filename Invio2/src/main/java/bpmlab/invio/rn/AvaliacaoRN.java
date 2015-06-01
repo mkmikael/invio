@@ -5,13 +5,13 @@
  */
 package bpmlab.invio.rn;
 
+import bpmlab.invio.dao.CurriculoDAO;
 import bpmlab.invio.dao.GenericDAO;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Orientacao;
 import bpmlab.invio.entidade.Periodico;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,19 +23,11 @@ public class AvaliacaoRN implements Serializable {
     private final CurriculoRN rnCurriculo = new CurriculoRN();
 
     public List<Curriculo> autoCompleteCurriculo(String busca) {
-        List<Curriculo> curriculos = rnCurriculo.obterTodos();
-        List<Curriculo> filtro = new ArrayList<Curriculo>();
-        if (busca != null) {
-            for (Curriculo curriculo : curriculos) {
-                if (curriculo.getNome().toUpperCase().startsWith(busca.toUpperCase())) {
-                    filtro.add(curriculo);
-                }
-            }
-        }
-        return filtro;
+        CurriculoDAO curriculoDAO = new CurriculoDAO();
+        return curriculoDAO.obterCurriculoPorNome(busca);
     }
 
-    public boolean possueArquivo(String arquivo) {
+    public boolean possuiArquivo(String arquivo) {
         return !(arquivo == null || "".equals(arquivo));
     }
 

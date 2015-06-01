@@ -4,9 +4,7 @@ import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.bean.util.UsuarioUtil;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Login;
-import bpmlab.invio.rn.JavaMailRN;
 import bpmlab.invio.rn.LoginRN;
-import bpmlab.invio.util.javamail.TextoEmail;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -18,7 +16,6 @@ import javax.faces.context.FacesContext;
 public class UsuarioBean {
 
     private LoginRN loginRN = new LoginRN();
-    private JavaMailRN javaMailRN = new JavaMailRN();
     private List<Login> logins;
     private Login login = new Login();
     private Curriculo curriculo = new Curriculo();
@@ -95,69 +92,8 @@ public class UsuarioBean {
         this.cpfLogin = cpfLogin;
     }
 
-    public String recuperarSenha() {
-        logins = loginRN.obterTodos();
-        boolean loginEncontrado = false;
-        String pagina = "";
-        for (Login loginTemp : logins) {
-
-            if (loginTemp.getEmail().equals(login.getEmail())) {
-                loginEncontrado = true;
-                if (loginEncontrado == true) {
-
-                    login = loginTemp;
-                    boolean falhaAoEnviarEmail = javaMailRN.configurarEnviarEmail(
-                            login, 
-                            "Solicitação de recuperação de senha",
-                            TextoEmail.getTextoEmailRecuperacaoSenha(login, loginTemp.getSenha()));
-                    if (falhaAoEnviarEmail == true) {
-                        pagina = "/loginInicio.xhtml";
-                        BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                                "Não foi possível enviar o e-mail de recuperação de senha, tente novamente mais tarde.");
-                        javaMailRN = new JavaMailRN();
-                    } else {
-                        pagina = "/loginInicio.xhtml";
-                        BeanUtil.criarMensagemDeAviso("A Senha foi enviada para seu e-mail.", "");
-                    }
-                }
-            }
-        }
-        if (loginEncontrado != true) {
-            pagina = "/publico/login/recuperarSenha.xhtml";
-            BeanUtil.criarMensagemDeAviso("O E-mail inserido não foi encontrado.",
-                    "Tente novamente.");
-        }
-        return pagina;
-    }
-
     public String salvarCurriculo() {
         return "/publico/indexHome.xhtml";
-    }
-
-    public String salvar2() {
-        //concluir este método. Será chamado no alterar senha que ainda
-        //não esta implementado na página.
-        String resposta = null;
-        if (loginRN.salvar(login)) {
-            boolean falhaAoEnviar = javaMailRN.configurarEnviarEmail(
-                    login,
-                    "Confirmação de registro de e-mail",
-                    TextoEmail.getTextoEmailCodigoConfirmacao(login));
-
-            if (falhaAoEnviar == true) {
-                loginRN.remover(login);
-                resposta = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso("Desculpe, ocorreu uma falha no sistema. ",
-                        "Não foi possível concluir a requisição, tente mais tarde.");
-                javaMailRN = new JavaMailRN();
-            } else {
-                resposta = "/loginInicio.xhtml";
-                BeanUtil.criarMensagemDeAviso(
-                        "Aviso",
-                        "Seus dados foram alterados com sucesso.");
-            }
-        }
-        return resposta;
     }
 
     public String validar() {

@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Relatório de FCO</title>
-        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
     </h:head>
     <h:body>
         <div style="width: 900px; margin: 0 auto;">
@@ -19,8 +19,7 @@
             </center>
             <br/>
             <br/>
-            <c:if test="#{avaliacaoBean.curriculos == null || 
-                          avaliacaoBean.curriculos.size() == 0}">
+            <c:if test="#{avaliacaoBean.curriculos == null || avaliacaoBean.curriculos.size() == 0}">
                 <h5>Sem Curriculos</h5>
             </c:if>
             <h:dataTable id="tabela"

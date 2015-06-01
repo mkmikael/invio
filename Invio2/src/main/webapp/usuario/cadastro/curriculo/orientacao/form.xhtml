@@ -1,0 +1,51 @@
+<div xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core">
+    <div class="form-group">
+        <label for="bolsista">Nome do Bolsista</label>
+        <h:inputText id="bolsista" class="form-control" value="#{orientacaoBean.orientacao.aluno}"/>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="tipo-orientacao">Tipo de Orientação</label>
+            <h:selectOneMenu id="tipo-orientacao" class="form-control" value="#{orientacaoBean.orientacao.tipoOrientacao}">
+                <f:selectItem itemLabel="" itemValue="0"/>  
+                <f:selectItem itemLabel="Bolsista DTI (Orientação)" itemValue="1" />  
+                <f:selectItem itemLabel="Dissertação de Mestrado (Co-orientação)" itemValue="2" />  
+                <f:selectItem itemLabel="Dissertação de Mestrado (Orientação)" itemValue="3" />  
+                <f:selectItem itemLabel="Especialização (Orientação)" itemValue="4" />  
+                <f:selectItem itemLabel="Iniciação Científica (Orientação)" itemValue="5" />  
+                <f:selectItem itemLabel="TCC (Orientação)" itemValue="6" />  
+                <f:selectItem itemLabel="Tese de Doutorado (Co-orientação)" itemValue="7" />  
+                <f:selectItem itemLabel="Tese Doutorado (Orientação)" itemValue="8" /> 
+            </h:selectOneMenu>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="tipo-bolsa">Tipo de Bolsa</label>
+            <h:selectOneMenu id="tipo-bolsa" class="form-control" value="#{orientacaoBean.orientacao.tipoBolsa}">
+                <f:selectItem itemLabel="" itemValue="" />  
+                <f:selectItem itemLabel="PIBIC/UFRA-AF" itemValue="UFRA-AF" />  
+                <f:selectItem itemLabel="PIBIC/UFRA" itemValue="UFRA" />  
+                <f:selectItem itemLabel="CNPq-AF" itemValue="CNPQ-AF" />  
+                <f:selectItem itemLabel="CNPq" itemValue="CNPQ" />  
+                <f:selectItem itemLabel="FAPESPA" itemValue="FAPESPA" />  
+                <f:selectItem itemLabel="CAPES" itemValue="CAPES" />  
+                <f:selectItem itemLabel="Outro" itemValue="Outro" />  
+            </h:selectOneMenu>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inicio">Período Inicial</label>
+            <h:inputText id="inicio" class="form-control datepicker" value="#{orientacaoBean.orientacao.PInicial}">
+                <f:convertDateTime/>
+            </h:inputText>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="final">Período Final</label>
+            <h:inputText id="final" class="form-control datepicker" value="#{orientacaoBean.orientacao.PFinal}">
+                <f:convertDateTime/>
+            </h:inputText>
+        </div>
+    </div>
+    <button type="reset" class="btn btn-default margin-2-px">Limpar</button>
+    <h:commandButton value="Adicionar" class="btn btn-primary margin-2-px" action="#{orientacaoBean.salvarOrientacao}"/>
+</div>
+

@@ -90,7 +90,7 @@ public class AvaliacaoBean implements Serializable {
     }
 
     public boolean possuiArquivo(String arquivo) {
-        return rn.possueArquivo(arquivo);
+        return rn.possuiArquivo(arquivo);
     }
 
     public void confirmar() {

@@ -22,10 +22,10 @@ import java.util.List;
  */
 public class CurriculoRN implements Serializable {
 
-    GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
-    CurriculoDAO curriculoDAO = new CurriculoDAO();
-    GenericDAO<Area> daoArea = new GenericDAO<Area>();
-    GenericDAO<Login> daoLogin = new GenericDAO<Login>();
+    private GenericDAO<Curriculo> dao = new GenericDAO<Curriculo>();
+    private CurriculoDAO curriculoDAO = new CurriculoDAO();
+    private GenericDAO<Area> daoArea = new GenericDAO<Area>();
+    private GenericDAO<Login> daoLogin = new GenericDAO<Login>();
 
     public boolean salvar(Curriculo c) {
         boolean salvou = false;

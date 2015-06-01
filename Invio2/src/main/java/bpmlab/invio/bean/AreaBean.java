@@ -5,8 +5,8 @@
 package bpmlab.invio.bean;
 
 import bpmlab.invio.bean.util.BeanUtil;
+import bpmlab.invio.dao.AreaDAO;
 import bpmlab.invio.entidade.Area;
-import bpmlab.invio.rn.AreaRN;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -15,7 +15,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class AreaBean {
 
-    private AreaRN areaRN = new AreaRN();
+    private AreaDAO areaDAO = new AreaDAO();
     private List<Area> areas;
     private Area area = new Area();
 
@@ -27,7 +27,7 @@ public class AreaBean {
 
     public List<Area> getAreas() {
         if (areas == null) {
-            areas = areaRN.obterAreaOrdenada();
+            areas = areaDAO.obterAreaOrdenada();
         }
         return areas;
     }
@@ -41,12 +41,11 @@ public class AreaBean {
     }
 
     public void setArea(Area area) {
-        System.out.println("setArea " + area);
         this.area = area;
     }
 
     public String salvar() {
-        if (areaRN.salvar(area)) {
+        if (areaDAO.salvar(area)) {
             BeanUtil.criarMensagemDeInformacao(
                     "Operação realizada com sucesso",
                     "A área " + area.getNome() + " foi gravada com sucesso.");
@@ -57,7 +56,7 @@ public class AreaBean {
     }
 
     public String excluir() {
-        if (areaRN.remover(area)) {
+        if (areaDAO.excluir(area)) {
             BeanUtil.criarMensagemDeInformacao("Área excluída", "Área: " + area.getNome());
         } else {
             BeanUtil.criarMensagemDeErro("Erro ao excluir a área", "Área: " + area.getNome());

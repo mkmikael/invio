@@ -1,7 +1,7 @@
 package bpmlab.invio.conversor;
 
+import bpmlab.invio.dao.AreaDAO;
 import bpmlab.invio.entidade.Area;
-import bpmlab.invio.rn.AreaRN;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -10,17 +10,13 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "areaConversor")
 public class AreaConversor implements Converter {
 
-    private AreaRN areaRN;
-
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Area resposta = null;
         if (value == null || "".equals(value)) {
-            return resposta;
+            return null;
         } else {
-            areaRN = new AreaRN();
-            resposta = areaRN.obter(new Integer(value));
-            return resposta;
+            AreaDAO areaDAO = new AreaDAO();
+            return areaDAO.obter(Area.class, new Integer(value));
         }
     }
 

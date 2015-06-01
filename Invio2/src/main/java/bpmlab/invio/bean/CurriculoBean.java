@@ -2,16 +2,14 @@ package bpmlab.invio.bean;
 
 import bpmlab.invio.bean.util.BeanUtil;
 import bpmlab.invio.bean.util.UsuarioUtil;
+import bpmlab.invio.dao.AreaDAO;
 import bpmlab.invio.entidade.Area;
 import bpmlab.invio.entidade.Curriculo;
 import bpmlab.invio.entidade.Instituicao;
-import bpmlab.invio.entidade.Livro;
 import bpmlab.invio.entidade.Login;
 import bpmlab.invio.entidade.Orientacao;
-import bpmlab.invio.entidade.Periodico;
 import bpmlab.invio.entidade.Plano;
 import bpmlab.invio.entidade.Programa;
-import bpmlab.invio.rn.AreaRN;
 import bpmlab.invio.rn.CurriculoRN;
 import bpmlab.invio.rn.LivroRN;
 import bpmlab.invio.rn.LoginRN;
@@ -31,7 +29,7 @@ public class CurriculoBean {
     private LoginRN loginRN = new LoginRN();
     private PeriodicoRN periodicoRN = new PeriodicoRN();
     private LivroRN livroRN = new LivroRN();
-    private AreaRN areaRN = new AreaRN();
+    private AreaDAO areaDAO = new AreaDAO();
     private OrientacaoRN orientacaoRN = new OrientacaoRN();
     private List<Curriculo> curriculos;
     private List<Curriculo> curriculosDesc;
@@ -165,7 +163,7 @@ public class CurriculoBean {
 
     public List<Area> getAreas() {
         Instituicao UFRA = new Instituicao(1); //TODO CORRIGIR POG
-        return areaRN.obterAreas(UFRA);
+        return areaDAO.obterAreas(UFRA);
     }
 
     public String irListarCurriculos() {
@@ -261,7 +259,7 @@ public class CurriculoBean {
     }
 
     public List<Area> completeArea(String query) {
-        return areaRN.completeArea(query);
+        return areaDAO.obterAreaPorCriterio(query);
     }
     
     public String irParaProducao(String producao) {

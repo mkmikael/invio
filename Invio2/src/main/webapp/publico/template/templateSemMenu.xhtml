@@ -7,35 +7,13 @@
     <h:head>
         <title>Sistema Invio</title>
         <link rel="icon" href="../resources/imagem/ico.png" type="image/ico" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"  /> 
+        <h:outputStylesheet library="css" name="owner.css"  /> 
     </h:head>
     <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="94"
-                          resizable="false" 
-                          closable="false" 
-                          collapsible="false">
-
-                
-                <ui:insert name="header">
-                    <ui:include src="/usuario/include/topo.xhtml"/>
-                </ui:insert>
-
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center" size="750">
-
-                <ui:insert name="content">
-                    Conteudo
-                </ui:insert>
-
-                <div align="right" id="creditos">
-                    <h:graphicImage library="imagem" name="creditosBpmLab.png"/>
-                </div>
-
-            </p:layoutUnit>
-
-
-        </p:layout>
+        <div class="container">
+            <ui:insert name="content"/>
+        </div>
     </h:body>
 </html>
 

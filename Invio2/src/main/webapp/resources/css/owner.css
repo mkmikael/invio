@@ -8,6 +8,31 @@ and open the template in the editor.
     Author     : Simeia Lima
 */
 
-.ui-widget, .ui-widget .ui-widget, .ui-datatable table, .ui-widget-content, ui-panel-content ui-widget-content {
-    font-size: 12px !important;
+body {
+    background-color: #eee !important;
+}
+
+#panel-orientacoes {
+    margin: 1rem 0;
+}
+
+#panel-orientacoes table {
+    font-size: .85em;
+}
+
+#form-login {
+    width: 550px;
+    margin: 13em auto;
+}
+
+.width-100 {
+    width: 100% !important;
+}
+
+.margin-2-px {
+    margin: 2px;
+}
+
+.padding-0-1 {
+    padding: 0 1em;
 }

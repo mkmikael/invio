@@ -6,36 +6,33 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Sistema Invio</title>
-
         <link rel="icon" href="../resources/imagem/ico.png" type="image/ico" />
+        
+        <h:outputScript library="js" name="jquery-1.11.3.min.js"/>
+        <h:outputScript library="js" name="jquery-ui.min.js"/>
+        <h:outputStylesheet library="css" name="jquery-ui.min.css"/>
+        <h:outputScript library="js" name="jquery.mask.min.js"/>
+        
+        <h:outputScript library="js" name="owner.js"/>
         <h:outputStylesheet library="css" name="owner.css"/>
+        
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="menu.min.css"/>
     </h:head>
     <h:body>
-        <p:layout fullPage="true">
-            <p:layoutUnit  position="north" size="94"
-                           resizable="false" 
-                           closable="false" 
-                           collapsible="false">
-                <ui:insert name="header">
-                    <ui:include src="/usuario/include/topo.xhtml"/>
-                </ui:insert>
-
-            </p:layoutUnit>
-
-            <p:layoutUnit position="west" 
-                          closable="false">
-                <ui:include src="/usuario/include/menu.xhtml"/>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center" size="750">
-
-                <ui:insert name="content">
-                    Conteudo
-                </ui:insert>
-
-            </p:layoutUnit>
-
-        </p:layout >
+        <div class="container">
+            <div>
+                <ui:include src="/usuario/include/topo.xhtml"/>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <ui:include src="/usuario/include/menu.xhtml"/>
+                </div>
+                <div class="col-md-10">
+                    <ui:insert name="content"/>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

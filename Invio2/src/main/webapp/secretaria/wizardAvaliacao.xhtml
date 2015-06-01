@@ -203,7 +203,7 @@
                                 <p:commandButton 
                                     title="Corrigir"
                                     icon="ui-icon-pencil"
-                                    onclick="dialogConfir.show()">
+                                    onclick="PF('dialogConfir').show()">
                                     <f:setPropertyActionListener
                                         target="#{avaliacaoBean.producao}"
                                         value="#{periodico}"/>
@@ -225,14 +225,14 @@
                 </p:tab>
             </p:wizard>
 
-            <p:dialog widgetVar="dialogConfir" header="Corrigir Pontuação">
+            <p:dialog id="dialogConfir" widgetVar="dialogConfir" header="Corrigir Pontuação">
                 <p:panelGrid columns="2">
                     <h:outputText value="Estrato: "/>
                     <p:inputText value="#{avaliacaoBean.estratoTemp}"/>
                     
                     <p:commandButton 
                         value="Cancelar"
-                        onclick="dialogConfir.hide()"/>
+                        onclick="PF('dialogConfir').hide()"/>
                     
                     <p:commandButton 
                         ajax="false"
