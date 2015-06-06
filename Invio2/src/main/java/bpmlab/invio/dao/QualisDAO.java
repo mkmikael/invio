@@ -41,13 +41,11 @@ public class QualisDAO extends GenericDAO<Qualis> {
         }
     }
 
-    public List<String> obterPorArea(String area, String palavra, int maxResultados) {
+    public List<String> obterPorArea(String area) {
         try {
-            String query = "select distinct q.qualisPK.titulo from Qualis q WHERE q.qualisPK.titulo like :palavra and q.qualisPK.areaAvaliacao = :area";
+            String query = "select distinct q.qualisPK.titulo from Qualis q WHERE q.qualisPK.areaAvaliacao = :area";
             Query q = getEntityManager().createQuery(query);
-            q.setParameter("palavra", "%" + palavra + "%");
             q.setParameter("area", area);
-            q.setMaxResults(maxResultados);
             return q.getResultList();
         } catch (Exception e) {
             return null;

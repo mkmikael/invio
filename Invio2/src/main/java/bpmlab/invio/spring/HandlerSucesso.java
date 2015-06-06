@@ -22,7 +22,7 @@ public class HandlerSucesso extends SimpleUrlAuthenticationSuccessHandler{
     public void onAuthenticationSuccess(HttpServletRequest request,
             HttpServletResponse response,
             Authentication a) throws IOException, ServletException {
-        String pagina = "/publico/indexHome.xhtml";
+        String pagina = "/indexUsuario.xhtml";
         String login = a.getName();
         LoginRN loginRN = new LoginRN();
         Login usuario = loginRN.obter(login);

@@ -1,0 +1,28 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="glyphicon glyphicon-book"></span>
+                    Editar Livro
+                </h4>
+            </div>
+            <div class="panel-body">
+                <h:form>
+                    <ui:include src="/livro/form.xhtml"/>
+                </h:form>
+            </div>
+            <div class="panel-footer">
+                <h:button class="btn btn-default margin-2-px" value="Voltar" outcome="/livro/list"/>
+                <h:commandButton id="btn_add"
+                                 class="btn btn-success margin-2-px"
+                                 value="Editar"
+                                 action="#{livroBean.salvarLivro()}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

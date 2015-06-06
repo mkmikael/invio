@@ -83,7 +83,7 @@ public class LivroBean {
         }
         livro = new Livro();
         livro.setTipoLivro(30);
-        return null;
+        return "/livro/list.xhtml";
     }
 
     public String excluirLivro() {

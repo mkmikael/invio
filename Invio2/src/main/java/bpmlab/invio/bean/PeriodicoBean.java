@@ -67,7 +67,7 @@ public class PeriodicoBean {
         return total;
     }
 
-    public void salvarPeriodico() {
+    public String salvarPeriodico() {
         Login login = UsuarioUtil.obterUsuarioLogado();
         Curriculo curriculo = login.getCurriculo();
         if (curriculo == null) {
@@ -92,7 +92,7 @@ public class PeriodicoBean {
             int estrato = rn.obterEstrato(periodico.getRevista(), curriculo.getArea().getNome());
             if (estrato == 0) {
                 BeanUtil.criarMensagemDeErro("A revista esta incorreta.", "");
-                return;
+                return null;
             }
             LOG.info(periodico.getRevista());
             periodico.setCurriculo(curriculo);
@@ -116,10 +116,10 @@ public class PeriodicoBean {
             }
         }
         periodico = new Periodico();
+        return "/periodico/list.xhtml";
     }
 
     public String excluirPeriodico() {
-        periodico = new PeriodicoRN().obter(periodico.getId());
         LOG.log(Level.INFO, periodico.toString());
         if (periodicoRN.remover(periodico)) {
             BeanUtil.criarMensagemDeInformacao(
@@ -133,16 +133,13 @@ public class PeriodicoBean {
         periodico = new Periodico();
         Curriculo curriculo = UsuarioUtil.obterUsuarioLogado().getCurriculo();
         periodicosAtuais = periodicoRN.obterPeriodicosAtuais(curriculo);
-        return "/usuario/cadastro/curriculo/periodico/periodicos.xhtml";
+        return "/periodico/list.xhtml";
     }
 
-    public List<String> complete(String query) {
+    public List<String> getRevistas() {
         QualisRN qualisRN = new QualisRN();
         String area = UsuarioUtil.obterUsuarioLogado().getCurriculo().getArea().getNome();
-        return qualisRN.obterPorArea(area, query);
+        return qualisRN.obterPorArea(area);
     }
-
-    public String voltar() {
-        return "/usuario/cadastro/curriculo/periodico/periodicos.xhtml";
-    }
+    
 }

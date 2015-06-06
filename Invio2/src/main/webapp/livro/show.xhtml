@@ -1,0 +1,52 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-book"></span> Livro</h4>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <h:link class="btn btn-default" outcome="/livro/list">
+                            <span class="glyphicon glyphicon-list"></span>
+                            Voltar para listagem
+                        </h:link>
+                    </p>
+                    
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Título</th>
+                                <td>#{livroBean.livro.titulo}</td>
+                            </tr>
+                            <tr>
+                                <th>Autor</th>
+                                <td>#{livroBean.livro.autor}</td>
+                            </tr>
+                            <tr>
+                                <th>Ano de Publicação</th>
+                                <td>#{livroBean.livro.ano}</td>
+                            </tr>
+                            <tr>
+                                <th>Capítulo</th>
+                                <td>#{livroBean.livro.capitulo}</td>
+                            </tr>
+                            <tr>
+                                <th>ISBN</th>
+                                <td>#{livroBean.livro.isbn}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo</th>
+                                <td>#{livroBean.livro.tipoLivro == 30 ? 'Autor' : livroBean.livro.tipoLivro == 10 ? 'Editor' : ''}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

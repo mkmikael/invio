@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:p="http://primefaces.org/ui">
+    <h:form>
+        <div id="menu" class="ui vertical pointing menu width-100">
+            <h:commandLink class="item"
+                           title="Informações pessoais, titulação e área de atuação"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.meuCurriculo}">
+                <span class="glyphicon glyphicon-user pull-right"></span> Meu Perfil
+            </h:commandLink>
+
+            <h:commandLink class="item"
+                           title="Lista de publicações em periódicos"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('/periodico/list.xhtml')}">
+                <span class="glyphicon glyphicon-file pull-right"></span> Periodicos
+            </h:commandLink>
+
+            <h:commandLink class="item"
+                           title="Publicações de livros como autor ou editor e capítulos"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('/livro/list.xhtml')}">
+                <span class="glyphicon glyphicon-book pull-right"></span> Livros
+            </h:commandLink>
+
+            <h:commandLink class="item"
+                           title="Indicação dos alunos orientados"
+                           disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
+                           action="#{curriculoBean.irParaProducao('/orientacao/list.xhtml')}">
+                <span class="glyphicon glyphicon-education pull-right"></span> Orientações
+            </h:commandLink>
+
+            <h:link class="item"
+                    title="Imprimir a Ficha Curricular com as Produções"
+                    target="_blank"
+                    outcome="/curriculo/imprimirCurriculo.xhtml">
+                <span class="glyphicon glyphicon-download pull-right"></span> Imprimir Curriculo
+            </h:link>
+
+            <a class="item" href="#{request.contextPath}/j_spring_security_logout">
+                <span class="glyphicon glyphicon-log-out pull-right"></span> Sair
+            </a>
+        </div>
+    </h:form> 
+</html>
+

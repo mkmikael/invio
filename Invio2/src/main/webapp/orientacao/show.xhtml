@@ -1,0 +1,58 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-education"></span> Orientação</h4>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <h:link class="btn btn-default" outcome="/orientacao/list">
+                            <span class="glyphicon glyphicon-list"></span>
+                            Voltar para listagem
+                        </h:link>
+                    </p>
+                    
+                    <h:inputHidden value="#{orientacaoBean.orientacao.id}"/>
+                    
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Nome do Bolsista</th>
+                                <td>#{orientacaoBean.orientacao.aluno}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Orientação</th>
+                                <td>#{orientacaoBean.obterTipo(orientacaoBean.orientacao.tipoOrientacao)}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Bolsa</th>
+                                <td>#{orientacaoBean.orientacao.tipoBolsa}</td>
+                            </tr>
+                            <tr>
+                                <th>Período Inicial</th>
+                                <td>
+                                    <h:outputText value="#{orientacaoBean.orientacao.PInicial}">
+                                        <f:convertDateTime />
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Período Final</th>
+                                <td>
+                                    <h:outputText value="#{orientacaoBean.orientacao.PFinal}">
+                                        <f:convertDateTime />
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

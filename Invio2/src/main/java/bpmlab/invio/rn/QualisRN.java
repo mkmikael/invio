@@ -47,8 +47,8 @@ public class QualisRN {
         return dao.obterTodosTitulos(palavra, maxResultados);
     }
 
-    public List<String> obterPorArea(String area, String palavra) {
-        return dao.obterPorArea(area, palavra, 20);
+    public List<String> obterPorArea(String area) {
+        return dao.obterPorArea(area);
     }
 
     public List<String> obterTodosTitulosArea(String palavra) {

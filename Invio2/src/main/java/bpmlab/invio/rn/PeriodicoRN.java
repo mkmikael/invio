@@ -60,8 +60,4 @@ public class PeriodicoRN {
         return periodicoDAO.obterPeriodicosPassados(curriculo, anoLimite);
     }
 
-    public List<String> obterPorArea(String area, String palavra) {
-        return qualisRN.obterPorArea(area, palavra);
-    }
-    
 }

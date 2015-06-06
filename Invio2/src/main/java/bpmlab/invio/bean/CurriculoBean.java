@@ -183,7 +183,7 @@ public class CurriculoBean {
         } else {
             curriculo = usuarioLogado.getCurriculo();
         }
-        return "/usuario/cadastro/curriculo/wizard.xhtml";
+        return "/curriculo/wizard.xhtml";
     }
 
     public Integer getTotalPontos() {
@@ -268,7 +268,7 @@ public class CurriculoBean {
             BeanUtil.criarMensagemDeAviso("Aviso", "Você deve registrar seus dados de perfil para poder registrar uma produção, clique na opção do menu 'Meu Perfil' e preencha os dados");
             return null;
         } else {
-            return "/usuario/cadastro/curriculo/" + producao;
+            return producao;
         }
     }
 

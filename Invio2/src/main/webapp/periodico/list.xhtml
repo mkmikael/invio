@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="glyphicon glyphicon-file"></span>
+                    Listagem de Periódicos
+                </h4>
+            </div>
+            <div class="panel-body">
+                <h:messages id="message" showDetail="true" showSummary="true"/>  
+                <p>
+                    <h:button class="btn btn-success" value="Criar Periódico" outcome="/periodico/create.xhtml"/>  
+                </p>
+                <h:form>
+                    <h:dataTable id="periodicosTabelaAtuais" 
+                                 class="table table-bordered table-striped table-responsive"
+                                 value="#{periodicoBean.periodicosAtuais}" 
+                                 var="periodico">
+                        <f:facet name="header">
+                            <div class="text-center">
+                                Periódicos
+                            </div>
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">Título</f:facet>
+                            <h:commandLink action="/periodico/show.xhtml">
+                                <h:outputText value="#{periodico.titulo}"/>
+                                <f:setPropertyActionListener
+                                    value="#{periodico}"
+                                    target="#{periodicoBean.periodico}"/>
+                            </h:commandLink>
+                        </h:column>  
+
+                        <h:column> 
+                            <f:facet name="header">Autor</f:facet>
+                            <h:outputText value="#{periodico.autores}"/> 
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">Revista</f:facet>
+                            <h:outputText value="#{periodico.revista}"/> 
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">Ano</f:facet>
+                            <h:outputText value="#{periodico.ano}"/>
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">Pág.Inicial</f:facet>
+                            <h:outputText value="#{periodico.paginainicial}"/> 
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">Pág.Final</f:facet>
+                            <h:outputText value="#{periodico.paginafinal}"/> 
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Pontuação</f:facet>
+                            <f:facet name="footer">
+                                <b><h:outputText value="#{periodicoBean.total}"/></b>
+                            </f:facet>
+                            <h:outputText value="#{periodico.estrato}"/> 
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink action="/periodico/edit.xhtml">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                Editar
+                                <f:setPropertyActionListener
+                                    value="#{periodico}"
+                                    target="#{periodicoBean.periodico}"/>
+                            </h:commandLink>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink action="#{periodicoBean.excluirPeriodico}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                Excluir
+                                <f:setPropertyActionListener
+                                    value="#{periodico}"
+                                    target="#{periodicoBean.periodico}"/>
+                            </h:commandLink> 
+                        </h:column>
+                    </h:dataTable>  
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

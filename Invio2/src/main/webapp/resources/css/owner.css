@@ -12,12 +12,12 @@ body {
     background-color: #eee !important;
 }
 
-#panel-orientacoes {
-    margin: 1rem 0;
+table {
+    font-size: .85em;
 }
 
-#panel-orientacoes table {
-    font-size: .85em;
+.inline-block {
+    display: inline-block
 }
 
 #form-login {

@@ -1,0 +1,50 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://xmlns.jcp.org/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core">
+
+    <div class="form-group">
+        <label for="titulo">Título</label>
+        <h:inputText id="titulo"
+                     class="form-control"
+                     value="#{livroBean.livro.titulo}" />  
+    </div>
+
+    <div class="form-group">
+        <label for="autor">Autor</label>
+        <h:inputText id="autor" 
+                     class="form-control"
+                     value="#{livroBean.livro.autor}" />  
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label for="anoPublicacao">Ano de Publicação</label>
+            <h:inputText id="anoPublicacao"
+                         class="form-control"
+                         value="#{livroBean.livro.ano}" />
+        </div>
+
+        <div class="form-group col-md-2">
+            <label for="capitulo">Capítulo</label>
+            <h:inputText id="capitulo" 
+                         class="form-control"
+                         value="#{livroBean.livro.capitulo}" />
+        </div>
+
+        <div class="form-group col-md-3">
+            <h:outputLabel value="ISBN : " />
+            <h:inputText id="Isbn" 
+                         class="form-control"
+                         value="#{livroBean.livro.isbn}" />
+        </div>
+
+        <div class="form-group col-md-5">
+            <label for="tipo">Tipo</label>
+            <h:selectOneRadio id="tipo"
+                              value="#{livroBean.livro.tipoLivro}">
+                <f:selectItem itemLabel="Autor" itemValue="30"/>  
+                <f:selectItem itemLabel="Editor" itemValue="10"/>  
+            </h:selectOneRadio>  
+        </div>
+    </div>
+</div>

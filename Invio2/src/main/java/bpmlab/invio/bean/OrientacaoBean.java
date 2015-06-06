@@ -98,7 +98,7 @@ public class OrientacaoBean {
             }
         }
         orientacao = new Orientacao();
-        return null;
+        return "/orientacao/list";
     }
 
     public void excluirOrientacao() {

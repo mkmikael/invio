@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>
+                    <span class="glyphicon glyphicon-book"></span>
+                    Listagem de Livros
+                </h4>
+            </div>
+            <div class="panel-body">
+                <h:form>
+                    <h:messages showDetail="true"/>
+                    <p>
+                        <h:button class="btn btn-success" value="Criar Livro" outcome="/livro/create"/>
+                    </p>
+                    <h:dataTable id="livrosTabela" 
+                                 class="table table-bordered table-striped"
+                                 value="#{livroBean.livrosAtuais}" var="livro">
+
+                        <h:column>
+                            <f:facet name="header">Título</f:facet>
+                            <h:commandLink action="/livro/show.xhtml">
+                                <h:outputText value="#{livro.titulo}"/>
+                                <f:setPropertyActionListener 
+                                    target="#{livroBean.livro}"
+                                    value="#{livro}"/>
+                            </h:commandLink>
+                        </h:column>  
+
+                        <h:column> 
+                            <f:facet name="header">Autor</f:facet>
+                            <h:outputText value="#{livro.autor}"/> 
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Capítulo</f:facet>
+                            <h:outputText value="#{livro.capitulo}"/> 
+                        </h:column>
+
+
+                        <h:column>
+                            <f:facet name="header">Ano Publ.</f:facet>
+                            <h:outputText value="#{livro.ano}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">ISBN</f:facet>
+                            <h:outputText value="#{livro.isbn}"/> 
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Pont.</f:facet>
+                            <h:outputText value="#{livro.estrato}"/> 
+                            <f:facet name="footer">
+                                <b><h:outputText value="#{livroBean.total}"/></b>
+                            </f:facet>
+                        </h:column> 
+
+                        <h:column>
+                            <h:commandLink action="/livro/edit.xhtml">
+                                <span class="glyphicon glyphicon-edit"></span>
+                                Editar
+                                <f:setPropertyActionListener 
+                                    target="#{livroBean.livro}"
+                                    value="#{livro}"/>
+                            </h:commandLink>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink action="#{livroBean.excluirLivro()}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                                Excluir
+                                <f:setPropertyActionListener 
+                                    target="#{livroBean.livro}"
+                                    value="#{livro}"/>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>  
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
