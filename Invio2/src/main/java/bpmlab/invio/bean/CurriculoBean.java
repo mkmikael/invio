@@ -183,7 +183,7 @@ public class CurriculoBean {
         } else {
             curriculo = usuarioLogado.getCurriculo();
         }
-        return "/curriculo/wizard.xhtml";
+        return "/curriculo/create.xhtml";
     }
 
     public Integer getTotalPontos() {

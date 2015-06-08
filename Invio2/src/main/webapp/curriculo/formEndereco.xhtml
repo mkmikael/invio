@@ -1,0 +1,67 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://xmlns.jcp.org/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core">
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="CEP" for="cep"/>  
+        <div class="col-sm-2">
+            <h:inputText id="cep" 
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.cep}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="Logradouro" for="logradouro"/>  
+        <div class="col-sm-6">
+            <h:inputText id="logradouro" 
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.logradouro}"/>  
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="Número" for="numero"/>  
+        <div class="col-sm-2">
+            <h:inputText  id="numero" 
+                          class="form-control"
+                          value="#{curriculoBean.curriculo.numeroEnd}" />  
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="Cidade" for="cidade"/>
+        <div class="col-sm-4">
+            <h:inputText id="cidade"
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.cidade}" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="Bairro" for="bairro"/>
+        <div class="col-sm-4">
+            <h:inputText id="bairro" 
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.bairro}" />  
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="Estado" for="estado"/>  
+        <div class="col-sm-1">
+            <h:inputText id="estado" 
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.estado}" />  
+        </div>
+    </div>
+
+    <div class="form-group">
+        <h:outputLabel class="col-sm-2" value="País" for="pais"/>  
+        <div class="col-sm-4">
+            <h:inputText id="pais" 
+                         class="form-control"
+                         value="#{curriculoBean.curriculo.pais}" />  
+        </div>
+    </div>
+</div>
+

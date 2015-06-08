@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:outputScript library="js" name="curriculoWizard.js"/>
+        <h:form id="form" class="form-horizontal">
+            <h:messages />
+
+            <div>
+                <ul>
+                    <li id="header1" class="btn btn-success active">Dados Pessoais</li> 
+                    <li id="header2" class="btn btn-success">Endereço</li> 
+                </ul>
+            </div>
+
+            <div id="step1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ui:include src="/curriculo/formDadosPessoal.xhtml"/>
+                    </div>
+                </div>
+                <div class="actions">
+                    <ul>
+                        <li>
+                            <a class="btn btn-success next">
+                                Próximo
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="step2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ui:include src="/curriculo/formEndereco.xhtml"/>
+                    </div>
+                </div>
+                <div class="actions">
+                    <ul>
+                        <li>
+                            <a class="btn btn-success previous">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                                Anterior
+                            </a>
+                        </li>
+                        <li>
+                            <h:commandLink class="btn btn-success" action="#{curriculoBean.salvarCurriculo()}">
+                                 Salvar
+                                 <span class="glyphicon glyphicon-ok"></span>
+                            </h:commandLink>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,148 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/layout/templatePadrao.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4><span class="glyphicon glyphicon-asterisk"></span> Orientação</h4>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <h:link class="btn btn-default" outcome="/orientacao/list">
+                            <span class="glyphicon glyphicon-list"></span>
+                            Voltar para listagem
+                        </h:link>
+                    </p>
+                    
+                    <h:inputHidden value="Expression orientacaoBean is undefined on line 20, column 45 in Templates/JSF/show.xhtml."/>
+                    
+                     <h:outputText value="Titulação: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.titulacao}" />  
+
+                            <h:outputText value="Nome: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.nome}" />  
+
+                            <h:outputText value="Gênero: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.genero}" />  
+
+                            <h:outputText value="Data de Nascimento: " />  
+                            <h:inputText
+                                styleClass="outputLabel"
+                                value="#{curriculoBean.curriculo.dtNascimento}" 
+                                disabled="true">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="Brazil/East"/>
+                            </h:inputText>
+
+                            <h:outputText value="CPF: " />  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.cpf}"/>  
+
+                            <h:outputText value="Email: " />  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.email}"/>  
+
+                            <h:outputText value="Celular " />  
+                            <h:inputText  styleClass="outputLabel"  
+                                          disabled="true"
+                                          value="#{curriculoBean.curriculo.celular}"/>  
+
+                            <h:outputText value="Matricula: " />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.matricula}" />
+
+                            <h:outputText value="Lattes: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.lattes}" />  
+
+                            <h:outputText rendered="#{usuarioBean.usuario}" value="Grupo de Pesquisa: " />  
+                            <h:inputText rendered="#{usuarioBean.usuario}"
+                                         styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.grupoPesq}" />  
+
+                            <h:outputText rendered="#{usuarioBean.usuario}" 
+                                          value="Curso: " />  
+                            <h:inputText rendered="#{usuarioBean.usuario}" 
+                                         styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.curso}" />  
+
+                            <h:outputText value="Instituto/Campi: " />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.institutoCampi}" />  
+
+                            <h:outputText value="Logradouro: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.logradouro}" />  
+
+                            <h:outputText value="Número: " />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.numeroEnd}" />  
+
+                            <h:outputText value="Cep: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.cep}"/> 
+
+                            <h:outputText value="Bairro: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.bairro}" />  
+
+                            <h:outputText value="Cidade: " />  
+                            <h:inputText styleClass="outputLabel"  
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.cidade}" />  
+
+                            <h:outputText value="Estado: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.estado}" />  
+
+                            <h:outputText value="País: " />  
+                            <h:inputText styleClass="outputLabel" 
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.pais}" />
+
+                            <h:outputText value="Área de Atuação: " />  
+                            <h:inputText styleClass="outputLabel"
+                                         disabled="true"
+                                         value="#{curriculoBean.curriculo.area.nome}" />  
+                    
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Nome do Bolsista</th>
+                                <td>Expression orientacaoBean is undefined on line 26, column 39 in Templates/JSF/show.xhtml.</td>
+                            </tr>
+                            <tr>
+                                <th>Período Final</th>
+                                <td>
+                                    <h:outputText value="Expression orientacaoBean is undefined on line 47, column 60 in Templates/JSF/show.xhtml.">
+                                        <f:convertDateTime />
+                                    </h:outputText>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

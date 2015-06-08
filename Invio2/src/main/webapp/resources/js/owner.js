@@ -17,5 +17,5 @@ $(function () {
     $.datepicker.setDefaults($.datepicker.regional["pt_Br"]);
 
     $('.date').mask('00/00/0000');
-    $('.datepicker').datepicker({ changeMonth: true, changeYear: true });
+    $('.datepicker').datepicker({changeMonth: true, changeYear: true});
 });
