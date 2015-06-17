@@ -88,12 +88,12 @@ public class PeriodicoBean {
         } else if (Integer.parseInt(periodico.getAno()) < Calendar.getInstance().getWeekYear() - 5) {
             BeanUtil.criarMensagemDeErro("O periódico deve ter sido publicado nos últimos 5 anos.", "");
         } else {
-            QualisRN rn = new QualisRN();
-            int estrato = rn.obterEstrato(periodico.getRevista(), curriculo.getArea().getNome());
-            if (estrato == 0) {
-                BeanUtil.criarMensagemDeErro("A revista esta incorreta.", "");
-                return null;
-            }
+//            QualisRN rn = new QualisRN();
+//            int estrato = rn.obterEstrato(periodico.getRevista(), curriculo.getArea().getNome());
+//            if (estrato == 0) {
+//                BeanUtil.criarMensagemDeErro("A revista esta incorreta.", "");
+//                return null;
+//            }
             LOG.info(periodico.getRevista());
             periodico.setCurriculo(curriculo);
             periodico.setArquivo("");

@@ -75,6 +75,10 @@ public class CurriculoRN implements Serializable {
         return lista;
     }
 
+    public List<Curriculo> obterCurriculosZerados() {
+        return curriculoDAO.obterCurriculosZerados();
+    }
+    
     public Integer totalPontos(Curriculo curriculo) {
         int totalPontos = 0;
         if (curriculo != null

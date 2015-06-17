@@ -80,19 +80,29 @@ public class GenericDAO<T> implements Serializable {
     }
 
     public T obter(Class<T> classe, Object id) {
-        EntityManager em = getEntityManager();
-        String query = classe.getSimpleName() + ".findById";
-        final Query q = em.createNamedQuery(query);
-        closeEntityManager();
-        return (T) q.setParameter("id", id).getSingleResult();
+        try {
+            EntityManager em = getEntityManager();
+            String query = classe.getSimpleName() + ".findById";
+            final Query q = em.createNamedQuery(query);
+            return (T) q.setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
     }
 
     public List<T> obterTodos(Class<T> classe) {
-        EntityManager em = getEntityManager();
-        String query = classe.getSimpleName() + ".findAll";
-        Query q = em.createNamedQuery(query);
-        closeEntityManager();
-        return q.getResultList();
+        try {
+            EntityManager em = getEntityManager();
+            String query = classe.getSimpleName() + ".findAll";
+            Query q = em.createNamedQuery(query);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        } finally {
+            closeEntityManager();
+        }
     }
 
     /**

@@ -7,6 +7,12 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="content">
+        <style>
+            table {
+                font-size: .8em;
+            }
+        </style>
+        
         <h:form id="AvaliacaoWizard">
 
             <p:messages showDetail="true" showSummary="true"/>
@@ -54,11 +60,11 @@
                                     <f:convertDateTime pattern="dd/MMM/yyyy"/>
                                 </h:outputText>  
                             </p:column>  
-                            <p:column headerText="Tipo de Orientação" filterBy="#{orientacao.tipoOrientacao}">  
-                                <h:outputText value="#{orientacao.tipoOrientacao}"/>  
+                            <p:column headerText="Tipo de Orientação" filterBy="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}">  
+                                <h:outputText value="#{orientacaoBean.obterTipo(orientacao.tipoOrientacao)}"/>
                             </p:column>  
                             <p:column headerText="Tipo de Bolsa" filterBy="#{orientacao.tipoBolsa}">  
-                                <h:outputText value="#{orientacao.tipoOrientacao}"/>  
+                                <h:outputText value="#{orientacao.tipoBolsa}"/>  
                             </p:column>  
                             <p:column headerText="Estrato">  
                                 <h:outputText value="#{orientacao.estrato}"/>  

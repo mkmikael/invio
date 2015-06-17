@@ -13,6 +13,7 @@
                 <ul>
                     <li id="header1" class="btn btn-success active">Dados Pessoais</li> 
                     <li id="header2" class="btn btn-success">Endereço</li> 
+                    <li id="header3" class="btn btn-success">Área</li> 
                 </ul>
             </div>
 
@@ -49,9 +50,33 @@
                             </a>
                         </li>
                         <li>
+                            <a class="btn btn-success next">
+                                Próximo
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="step3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ui:include src="/curriculo/formArea.xhtml"/>
+                    </div>
+                </div>
+                <div class="actions">
+                    <ul>
+                        <li>
+                            <a class="btn btn-success previous">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                                Anterior
+                            </a>
+                        </li>
+                        <li>
                             <h:commandLink class="btn btn-success" action="#{curriculoBean.salvarCurriculo()}">
-                                 Salvar
-                                 <span class="glyphicon glyphicon-ok"></span>
+                                Salvar
+                                <span class="glyphicon glyphicon-ok"></span>
                             </h:commandLink>
                         </li>
                     </ul>

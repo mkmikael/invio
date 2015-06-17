@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Dedo
  */
-public class Qualis implements Serializable {
+public class QualisS implements Serializable {
 
     private String issn;
     private String titulo;
@@ -20,10 +20,10 @@ public class Qualis implements Serializable {
     private String areaDeAvaliacao;
     private String status;
 
-    public Qualis() {
+    public QualisS() {
     }
 
-    public Qualis(String issn, String titulo, String estrato, String areaDeAvaliacao, String status) {
+    public QualisS(String issn, String titulo, String estrato, String areaDeAvaliacao, String status) {
         this.issn = issn;
         this.titulo = titulo;
         this.estrato = estrato;
@@ -86,7 +86,7 @@ public class Qualis implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Qualis other = (Qualis) obj;
+        final QualisS other = (QualisS) obj;
         if (!Objects.equals(this.issn, other.issn)) {
             return false;
         }

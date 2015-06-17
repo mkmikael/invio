@@ -54,3 +54,11 @@ div.actions ul li {
     padding: .7em;
     margin: .1em;
 }
+
+#menu .item {
+    font-size: 1.1rem;
+}
+
+#form-login .panel-heading, #form-login .panel-footer {
+    background-color: transparent
+}

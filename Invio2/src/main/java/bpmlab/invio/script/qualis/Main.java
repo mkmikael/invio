@@ -24,13 +24,13 @@ public class Main {
                 LerXls.listaDeArea(chooser.getSelectedFile()));
     }
 
-    public static void escreverArquivo(List<Qualis> listaQualis, List<String> listaAreas) throws IOException {
+    public static void escreverArquivo(List<QualisS> listaQualis, List<String> listaAreas) throws IOException {
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
         try {
             fileWriter = new FileWriter("/home/bpmlab/inserts.sql");
             bufferedWriter = new BufferedWriter(fileWriter);
-            List<Qualis> qualis = listaQualis;
+            List<QualisS> qualis = listaQualis;
             List<String> areas = listaAreas;
 
             bufferedWriter.write("insert into area(nome) values");

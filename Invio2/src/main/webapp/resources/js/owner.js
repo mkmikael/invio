@@ -16,6 +16,8 @@ $(function () {
     };
     $.datepicker.setDefaults($.datepicker.regional["pt_Br"]);
 
-    $('.date').mask('00/00/0000');
+    $('.date').mask('00/00/0000', { placeholder: '__/__/____' });
+    $('.cpf').mask('000.000.000-00', { placeholder: '___.___.___-__' });
+    $('.celular').mask('(00)00000-0000', { placeholder: '(__)9____-____' });
     $('.datepicker').datepicker({changeMonth: true, changeYear: true});
 });

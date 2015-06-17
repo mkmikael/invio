@@ -8,6 +8,19 @@
 	http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 	 
     <http auto-config="true">
+        <intercept-url pattern="/administracao/**" access="ROLE_A"/>
+        <intercept-url pattern="/area/**" access="ROLE_A"/>
+
+        <intercept-url pattern="/avaliacao/**" access="ROLE_S"/>
+        <intercept-url pattern="/curriculo/listar**" access="ROLE_S"/>
+        <intercept-url pattern="/curriculo/listaCurriculo**" access="ROLE_S"/>
+        <intercept-url pattern="/curriculo/fco**" access="ROLE_S"/>
+
+        <intercept-url pattern="/curriculo/create**" access="ROLE_U"/>
+        <intercept-url pattern="/orientacao/**" access="ROLE_U"/>
+        <intercept-url pattern="/periodico/**" access="ROLE_U"/>
+        <intercept-url pattern="/livro/**" access="ROLE_U"/>
+
         <form-login 
             login-page="/loginInicio.xhtml"
             authentication-failure-url="/loginInicio.xhtml?erro=true"

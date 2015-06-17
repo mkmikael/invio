@@ -35,13 +35,13 @@
         <div class="form-group col-md-2">
             <label for="inicio">Período Inicial</label>
             <h:inputText id="inicio" class="form-control datepicker" value="#{orientacaoBean.orientacao.PInicial}">
-                <f:convertDateTime/>
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </div>
         <div class="form-group col-md-2">
             <label for="final">Período Final</label>
             <h:inputText id="final" class="form-control datepicker" value="#{orientacaoBean.orientacao.PFinal}">
-                <f:convertDateTime/>
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </div>
     </div>

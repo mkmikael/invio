@@ -46,7 +46,7 @@
         <h:outputLabel class="col-sm-2" value="Data de Nascimento" for="nascimento"/>
         <div class="col-sm-3">
             <h:inputText id="nascimento"
-                         class="form-control"
+                         class="form-control date"
                          value="#{curriculoBean.curriculo.dtNascimento}">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
@@ -57,7 +57,7 @@
         <h:outputLabel class="col-sm-2" value="CPF" for="cpf"/>
         <div class="col-sm-3">
             <h:inputText id="cpf" 
-                         class="form-control"
+                         class="form-control cpf"
                          required="true" 
                          value="#{curriculoBean.curriculo.cpf}"/> 
         </div>
@@ -97,7 +97,7 @@
         <h:outputLabel class="col-sm-2" value="Celular" for="celular"/>  
         <div class="col-sm-3">
             <h:inputText id="celular" 
-                         class="form-control"
+                         class="form-control celular"
                          required="true"
                          value="#{curriculoBean.curriculo.celular}" />
         </div>

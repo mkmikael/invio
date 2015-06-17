@@ -164,7 +164,7 @@ public class ConstruirQualis {
      */
     public static Map<String, Object> construir() {
         List<String> linhas = corrigirLinhas();
-        List<Qualis> qualis = new ArrayList<>();
+        List<QualisS> qualis = new ArrayList<>();
         Set<String> areas = new HashSet<>();
         for (String linha : linhas) {
             int indexFinal = linha.indexOf("Atualizado");
@@ -210,7 +210,7 @@ public class ConstruirQualis {
             }
             try {
                 if (linha.contains("0101-0794 Revista C & I. Controle & Instrumentação C ENGENHARIAS IV Atualizado")) {
-                    qualis.add(new Qualis("0101-0794", "Revista C & I. Controle & Instrumentação",
+                    qualis.add(new QualisS("0101-0794", "Revista C & I. Controle & Instrumentação",
                             "C", "ENGENHARIAS IV", "Atualizado"));
                     areas.add("ENGENHARIAS IV");
                 } else {
@@ -220,7 +220,7 @@ public class ConstruirQualis {
                         titulo = titulo.replace("'", "''");
                     }
                     if (!area.trim().isEmpty()) {
-                        Qualis q = new Qualis(issn.trim(), titulo.trim(), estrato, area.trim(), "Atualizado");
+                        QualisS q = new QualisS(issn.trim(), titulo.trim(), estrato, area.trim(), "Atualizado");
                         qualis.add(q);
                         areas.add(area.trim());
                     }

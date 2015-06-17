@@ -98,7 +98,7 @@ public class OrientacaoBean {
             }
         }
         orientacao = new Orientacao();
-        return "/orientacao/list";
+        return "/orientacao/list.xhtml";
     }
 
     public void excluirOrientacao() {
@@ -118,7 +118,4 @@ public class OrientacaoBean {
         return orientacaoRN.obterTipoOrientacao(tipo);
     }
 
-    public String voltar() {
-        return "/usuario/cadastro/curriculo/orientacao/orientacoes.xhtml";
-    }
 }

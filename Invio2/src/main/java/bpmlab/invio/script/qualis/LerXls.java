@@ -22,8 +22,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class LerXls {
     
-    public static List<Qualis> listaDeQualis(File file) {
-        List<Qualis> lista = new ArrayList<>();
+    public static List<QualisS> listaDeQualis(File file) {
+        List<QualisS> lista = new ArrayList<>();
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             HSSFWorkbook hssfWorkbook = new HSSFWorkbook(fileInputStream);
@@ -39,7 +39,7 @@ public class LerXls {
                     String area = row.getCell(3).getStringCellValue().trim();
                     String status = row.getCell(4).getStringCellValue().trim();
                     if (issn != null && !issn.isEmpty()) {
-                        Qualis qualis = new Qualis(issn, titulo, estrato, area, status);
+                        QualisS qualis = new QualisS(issn, titulo, estrato, area, status);
                         lista.add(qualis);
                     }
                 }

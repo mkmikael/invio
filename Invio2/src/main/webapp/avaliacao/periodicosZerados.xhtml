@@ -19,13 +19,10 @@
             </center>
             <br/>
             <br/>
-            <c:if test="#{avaliacaoBean.curriculos == null || avaliacaoBean.curriculos.size() == 0}">
-                <h5>Sem Curriculos</h5>
-            </c:if>
             <h:form>
                 <h:dataTable id="tabela"
                              class="table table-bordered table-striped"
-                             value="#{avaliacaoBean.curriculos}"
+                             value="#{curriculoBean.curriculosZerados}"
                              var="c">
                     <h:column>
                         <f:facet name="header">Usuário</f:facet>
@@ -33,13 +30,8 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">FCO</f:facet>
-                        <h:outputText value="#{c.fco}"/>
-                    </h:column>
-
-                    <h:column>
-                        <h:commandLink action="/avaliacao/imprimirCurriculo.xhtml">
-                            <span class="glyphicon glyphicon-print"></span>
+                        <h:commandLink action="/avaliacao/wizardAvaliacao.xhtml">
+                            Ir para Avaliação
                             <f:setPropertyActionListener
                                 target="#{curriculoBean.curriculo}"
                                 value="#{c}"/>

@@ -1,12 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:jsf="http://java.sun.com/jsf"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html">
     <h:form>
         <div id="menu" class="ui vertical pointing menu width-100">
+            <h:link class="item"
+                           rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
+                           outcome="/avaliacao/wizardAvaliacao.xhtml">
+                <span class="glyphicon glyphicon-user pull-right"></span> Avaliar Currículo
+            </h:link>
+            
+            <h:link class="item"
+                           rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
+                           outcome="/avaliacao/relatorioDeFco.xhtml">
+                <span class="glyphicon glyphicon-file pull-right"></span> FCO
+            </h:link>
+            
+            <h:link class="item"
+                           rendered="#{usuarioBean.secretaria or usuarioBean.administrador}"
+                           outcome="/avaliacao/periodicosZerados.xhtml">
+                <span class="glyphicon glyphicon-file pull-right"></span> Curriculos para correção
+            </h:link>
+            
             <h:commandLink class="item"
+                           rendered="#{usuarioBean.usuarioSessao}"
                            title="Informações pessoais, titulação e área de atuação"
                            disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                            action="#{curriculoBean.meuCurriculo}">
@@ -14,6 +31,7 @@
             </h:commandLink>
 
             <h:commandLink class="item"
+                           rendered="#{usuarioBean.usuarioSessao}"
                            title="Lista de publicações em periódicos"
                            disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                            action="#{curriculoBean.irParaProducao('/periodico/list.xhtml')}">
@@ -21,6 +39,7 @@
             </h:commandLink>
 
             <h:commandLink class="item"
+                           rendered="#{usuarioBean.usuarioSessao}"
                            title="Publicações de livros como autor ou editor e capítulos"
                            disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                            action="#{curriculoBean.irParaProducao('/livro/list.xhtml')}">
@@ -28,6 +47,7 @@
             </h:commandLink>
 
             <h:commandLink class="item"
+                           rendered="#{usuarioBean.usuarioSessao}"
                            title="Indicação dos alunos orientados"
                            disabled="#{configuracaoBean.isPeriodoDeAvaliacao}"
                            action="#{curriculoBean.irParaProducao('/orientacao/list.xhtml')}">
@@ -35,6 +55,7 @@
             </h:commandLink>
 
             <h:link class="item"
+                    rendered="#{usuarioBean.usuarioSessao}"
                     title="Imprimir a Ficha Curricular com as Produções"
                     target="_blank"
                     outcome="/curriculo/imprimirCurriculo.xhtml">
