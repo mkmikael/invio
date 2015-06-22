@@ -15,36 +15,56 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 @RequestScoped
 public class UsuarioCRUDBean {
 
-    private final LoginRN rn = new LoginRN();
-    private Login login = new Login();
-    
-    public UsuarioCRUDBean() {
-    }
+	private final LoginRN rn = new LoginRN();
+	private Login login = new Login();
+	private String confirmarSenha;
 
-    public Login getLogin() {
-        return login;
-    }
+	public UsuarioCRUDBean() {
+	}
 
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-    
-    public String salvar() {
-        if (rn.existe(login.getEmail())) {
-            BeanUtil.criarMensagemDeErro("O Email ja está cadastrado tente outro.", "");
-            return null;
-        } else {
-            login.setPerfil('U');
-            ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
-            String criptografada = encoder.encodePassword(login.getSenha(), null);
-            login.setSenha(criptografada);
-            if (rn.salvar(login)) {
-                BeanUtil.criarMensagemDeInformacao("Sua conta foi criada com sucesso!", "");
-                return "/loginInicio.xhtml";
-            } else {
-                BeanUtil.criarMensagemDeErro("Ocorreu um erro inesperado!", "");
-                return null;
-            }
-        }
-    }
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+	public String salvar() {
+		if (rn.existe(login.getEmail())) {
+			BeanUtil.criarMensagemDeErro(
+					"O Email ja está cadastrado tente outro.", "");
+			return null;
+		} else {
+			if (login.getSenha().equals(confirmarSenha)) {
+				login.setPerfil('U');
+				ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+				String criptografada = encoder.encodePassword(login.getSenha(),
+						null);
+				login.setSenha(criptografada);
+				if (rn.salvar(login)) {
+					BeanUtil.criarMensagemDeInformacao(
+							"Sua conta foi criada com sucesso!", "");
+					return "/loginInicio.xhtml";
+				} else {
+					BeanUtil.criarMensagemDeErro("Ocorreu um erro inesperado!",
+							"");
+					return null;
+				}
+			} else {
+				BeanUtil.criarMensagemDeErro("A senha foi confirmada incorretamente!", "");
+				return null;
+			}
+		}
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+	
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
+	}
+
+	
 }

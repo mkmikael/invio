@@ -1,50 +1,45 @@
 <ui:composition template="/layout/templateSemMenu.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
-    <ui:define name="content">
-        <h:form>
-            <p:growl/>
-            <div align="center">
-                <h:panelGrid columns="3">
-                    <p:outputLabel for="txEmail" value="Email"/>
-                    <p:inputText id="txEmail"
-                                 value="#{usuarioCRUDBean.login.email}"
-                                 required="true"
-                                 requiredMessage="Campo Obrigatório!"
-                                 size="35"/>
-                    <p:message for="txEmail"/>
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<ui:define name="content">
+		<h:form prependId="false">
+			<h:messages class="alert alert-danger" style="list-style: none" />
+			<div class=" panel panel-default">
+				<div class="panel-heading">
+					<h3>Registre-se</h3>
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label for="email">Email</label>
+						<h:inputText id="email" class="form-control"
+							value="#{usuarioCRUDBean.login.email}" required="true"
+							requiredMessage="O email é necessário!" />
+					</div>
 
-                    <p:outputLabel for="txSenha" value="Senha"/>
-                    <p:password id="txSenha"
-                                value="#{usuarioCRUDBean.login.senha}"
-                                required="true"
-                                requiredMessage="Campo Obrigatório!"
-                                validatorMessage="Senha confirmada incorretamente!"
-                                promptLabel="Favor digite sua senha"
-                                goodLabel="Bom"
-                                weakLabel="Fraco"
-                                strongLabel="Forte"
-                                feedback="true"
-                                match="txSenhaConfirmacao"/>
-                    <p:message for="txSenha"/>
+					<div class="form-group">
+						<label for="senha">Senha</label>
+						<h:inputSecret id="senha" class="form-control"
+							value="#{usuarioCRUDBean.login.senha}" required="true"
+							requiredMessage="A senha é necessário!" />
+					</div>
 
-                    <p:outputLabel for="txSenhaConfirmacao" value="Confirmar Senha"/>
-                    <p:password id="txSenhaConfirmacao"
-                                required="true"
-                                requiredMessage="Campo Obrigatório!"/>
-                    <p:message for="txSenhaConfirmacao"/>
-                </h:panelGrid>
+					<div class="form-group">
+						<label for="senha-confirmar">Confirmar Senha</label>
+						<h:inputSecret id="senha-confirmar" class="form-control"
+							value="#{usuarioCRUDBean.confirmarSenha}" required="true"
+							requiredMessage="É necessário confirmar senha" />
+					</div>
 
-                <p:commandButton id="cbSalvar"
-                                 ajax="false"
-                                 value="Enviar"
-                                 action="#{usuarioCRUDBean.salvar()}"/>
-                <p:button id="btnVoltar"
-                          value="Voltar"
-                          outcome="/loginInicio.xhtml"/>
-            </div>
-        </h:form>
-    </ui:define>
+					<div>
+						<h:commandButton id="salvar" value="Enviar"
+							class="btn btn-primary margin-2-px"
+							action="#{usuarioCRUDBean.salvar()}" />
+						<h:button id="voltar" class="btn btn-default margin-2-px"
+							value="Voltar" outcome="/loginInicio.xhtml" />
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
 </ui:composition>
